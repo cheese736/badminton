@@ -8,6 +8,12 @@ const port = 3000
 app.engine('hbs', handlebars({ extname: '.hbs'}))
 app.set('view engine', 'hbs')
 app.use(express.static('public'))
+
+
+
+app.get('/forum', (req, res, next) => {
+  res.render('forum')
+})
 app.get('/', (req, res, next) => {
   res.render('index')
 })

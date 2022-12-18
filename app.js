@@ -10,10 +10,14 @@ app.set('view engine', 'hbs')
 app.use(express.static('public'))
 
 
+app.get('/activities', (req, res, next) => {
+  res.render('activities')
+})
 
 app.get('/forum', (req, res, next) => {
   res.render('forum')
 })
+
 app.get('/', (req, res, next) => {
   res.render('index')
 })

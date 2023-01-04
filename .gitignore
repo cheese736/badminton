@@ -5,3 +5,4 @@ upload/
 test.js
 .DS_Store
 .env
+ERD_with_mermaid.md

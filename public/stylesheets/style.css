@@ -1,9 +1,10 @@
 body {
-  background-color: beige;
+  background-color: rgb(232, 212, 212);
   height: 100%;
 }
 
 #navbar {
+  height: 10%;
 }
 
 .forum-card {
@@ -14,4 +15,22 @@ body {
 
 .outline {
   outline:dashed red thin;
+}
+
+#sidebar {
+	display: inline-block;
+	vertical-align: top;
+	height: 100%;
+	width: 18%;
+	overflow: auto;
+}
+
+#end-of-nav {
+  font-size: 12px;
+}
+
+#signup, #signin {
+  background-color: rgb(255, 250, 246);
+  border-radius: 5px;
+  padding: 5px;
 }

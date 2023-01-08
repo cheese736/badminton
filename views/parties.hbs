@@ -1,0 +1,43 @@
+<div class="container-fluid min-vh-100 outline">
+  <div class="row">
+    <div class="outline col-2" id="sidebar">
+      <form action="">
+        <h6 class="p-1 border-bottom">Filter By</h6>
+        <p class="mb-2">地區</p>
+        <select class="form-select border-bottom" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <p class="mb-2"></p>
+      </form>
+    </div>
+    <div class="outline col-10">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">編號</th>
+            <th scope="col">活動名稱</th>
+            <th scope="col">主揪</th>
+            <th scope="col">聯絡方式</th>
+            <th scope="col">星期幾</th>
+            <th scope="col">球場資訊</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each parties}}
+          <tr>
+            <td></td>
+            <td>{{this.name}}</td>
+            <td>{{this.host_name}}</td>
+            <td>{{this.contact}}</td>
+            <td>{{this.day_of_the_week}}</td>
+            <td>{{this.court_location}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

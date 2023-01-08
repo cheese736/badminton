@@ -17,13 +17,13 @@ body {
   outline:dashed red thin;
 }
 
-#sidebar {
+/* #sidebar {
 	display: inline-block;
 	vertical-align: top;
 	height: 100%;
 	width: 18%;
 	overflow: auto;
-}
+} */
 
 #end-of-nav {
   font-size: 12px;

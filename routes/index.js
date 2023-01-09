@@ -3,6 +3,7 @@ const passport = require('../config/passport')
 const partyController = require('../controllers/party-controllers')
 const router = express.Router()
 const userController = require('../controllers/user-controllers')
+const forumController = require('../controllers/forum-controllers')
 
 
 
@@ -14,9 +15,7 @@ router.post('/signin', passport.authenticate('local', { failureRedirect: '/signi
 
 router.get('/parties', partyController.showParty)
 
-router.get('/forum', (req, res) => {
-  res.render('forum')
-})
+router.get('/forum', forumController.showDiscussion)
 
 router.get('/', (req, res) => {
   res.render('index')

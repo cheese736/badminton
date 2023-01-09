@@ -1,5 +1,6 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+// eslint-disable-next-line no-unused-vars
 const bcrypt = require('bcryptjs')
 const { User } = require('../models')
 

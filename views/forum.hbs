@@ -1,129 +1,96 @@
-<div class="d-flex outline h-100">
-  {{!-- side bar --}}
-  <div class="d-flex flex-column bg-light outline " style="width: 250px;" id="sidebar">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-      <svg class="bi me-2" width="40" height="32">
-        <use xlink:href="#bootstrap"></use>
-      </svg>
-      <span class="fs-4">Sidebar</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#home"></use>
+  <div class="container-fluid">
+    <div class="row">
+      {{!-- side bar --}}
+      <div class="col-2 outline">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32">
+            <use xlink:href="#bootstrap"></use>
           </svg>
-          Home
+          <span class="fs-4">Sidebar</span>
         </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-dark">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#speedometer2"></use>
-          </svg>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-dark">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#table"></use>
-          </svg>
-          Orders
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-dark">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#grid"></use>
-          </svg>
-          Products
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-dark">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#people-circle"></use>
-          </svg>
-          Customers
-        </a>
-      </li>
-    </ul>
-  </div>
-  {{!-- inner forum --}}
-  <div class="outline" data-bs-spy="scroll">
-    <div class="card-body p-2 p-sm-3 forum-card d-flex my-3">
-      <div class="media forum-item col-2">
-        <a href="#" data-toggle="collapse" data-target=".forum-content">
-          <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-circle" width="50"
-            alt="User">
-        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#home"></use>
+              </svg>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#speedometer2"></use>
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#table"></use>
+              </svg>
+              Orders
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#grid"></use>
+              </svg>
+              Products
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16">
+                <use xlink:href="#people-circle"></use>
+              </svg>
+              Customers
+            </a>
+          </li>
+        </ul>
       </div>
-      <div class="media-body col-8">
-        <h6>
-          <a href="#" data-toggle="collapse" data-target=".forum-content" class="text-body">Realtime fetching
-            data
-          </a>
-        </h6>
-        <p class="text-secondary">
-          lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-        </p>
-        <p class="text-muted">
-          <a href="javascript:void(0)">
-            drewdan
-          </a> replied
-          <span class="text-secondary font-weight-bold">
-            13 minutes ago
-          </span>
-        </p>
-      </div>
-      <div class="text-muted small text-center align-self-center col-2">
-        <span class="d-none d-sm-inline-block">
-          <i class="far fa-eye"></i>
-          19
-        </span>
-        <span>
-          <i class="far fa-comment ml-2"></i>
-          3
-        </span>
-      </div>
-    </div>
-    <div class="card-body p-2 p-sm-3 forum-card d-flex my-3">
-      <div class="media forum-item col-2">
-        <a href="#" data-toggle="collapse" data-target=".forum-content">
-          <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-circle" width="50"
-            alt="User">
-        </a>
-      </div>
-      <div class="media-body col-8">
-        <h6>
-          <a href="#" data-toggle="collapse" data-target=".forum-content" class="text-body">Realtime fetching
-            data
-          </a>
-        </h6>
-        <p class="text-secondary">
-          lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-        </p>
-        <p class="text-muted">
-          <a href="javascript:void(0)">
-            drewdan
-          </a> replied
-          <span class="text-secondary font-weight-bold">
-            13 minutes ago
-          </span>
-        </p>
-      </div>
-      <div class="text-muted small text-center align-self-center col-2">
-        <span class="d-none d-sm-inline-block">
-          <i class="far fa-eye"></i>
-          19
-        </span>
-        <span>
-          <i class="far fa-comment ml-2"></i>
-          3
-        </span>
+      {{!-- inner forum --}}
+      <div class="outline col-10" data-bs-spy="scroll">
+        {{#each discussions}}
+        <div class="card-body p-2 p-sm-3 forum-card d-flex my-3">
+          <div class="media forum-item col-2">
+            <a href="#" data-toggle="collapse" data-target=".forum-content">
+              <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-circle" width="50"
+                alt="User">
+            </a>
+          </div>
+          <div class="media-body col-8">
+            <h6>
+              <a href="#" data-toggle="collapse" data-target=".forum-content" class="text-body">{{this.header}}
+              </a>
+            </h6>
+            <p class="text-secondary">
+              {{this.content}}
+            </p>
+            <p class="text-muted">
+              <a href="javascript:void(0)">
+                drewdan
+              </a> replied
+              <span class="text-secondary font-weight-bold">
+                13 minutes ago
+              </span>
+            </p>
+          </div>
+          <div class="text-muted small text-center align-self-center col-2">
+            <span class="d-none d-sm-inline-block">
+              <i class="far fa-eye"></i>
+              19
+            </span>
+            <span>
+              <i class="far fa-comment ml-2"></i>
+              3
+            </span>
+          </div>
+        </div>
+        {{/each}}
       </div>
     </div>
   </div>
-</div>

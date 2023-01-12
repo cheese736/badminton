@@ -5,12 +5,12 @@ const flash = require('connect-flash')
 const passport = require('passport')
 const routes = require('./routes')
 const app = express()
-
+const handlebarsHelpers = require('./helpers/handlebars-helpers')
 
 const port = 3000
 const SESSION_SECRET = 'secret'
 
-app.engine('hbs', handlebars({ extname: '.hbs' }))
+app.engine('hbs', handlebars({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))

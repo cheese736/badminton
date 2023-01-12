@@ -1,20 +1,62 @@
-body {
-  background-color: rgb(232, 212, 212);
+
+html,body {
+  background-color: #f0e9d3;
   height: 100%;
 }
 
+.navbar a {
+  font-weight: bold;
+  color: #f0e9d3 !important;
+}
+
+.side-bar .nav-link {
+  font-weight: bold;
+  color: #475b66 !important;
+}
+.side-bar .nav-link:hover {
+  font-weight: bold;
+  color: #566e7b !important;
+}
+
+.side-bar {
+  border-right: medium solid #475b66 !important;
+}
+
+
+.navbar a:hover {
+  color: #cac4b2 !important;
+}
+
 #navbar {
+  background-color: #475b66 !important;
   height: 10%;
 }
 
 .forum-card {
   width: 60rem;
-  border-radius: 15px 30px;
-  border:solid thin;
+  border-radius: 10px 10px;
+  border:solid thin #475b66;
+}
+
+#parties td {
+  height: large;
+  color: #475b66 !important;
 }
 
 .outline {
   outline:dashed red thin;
+}
+
+/* pagination */
+
+.pagination li a{
+  color: #475b66;
+  font-weight: 500;
+}
+
+.page-item.active .page-link {
+  background-color: #cac4b2 !important;
+  border-color: #cac4b2 !important;
 }
 
 /* #sidebar {
@@ -33,4 +75,8 @@ body {
   background-color: rgb(255, 250, 246);
   border-radius: 5px;
   padding: 5px;
+}
+
+#discussion {
+  height: 100%;
 }

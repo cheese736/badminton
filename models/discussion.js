@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Discussion.belongsTo(models.User, { foreignKey: 'user_id' })
+      Discussion.belongsTo(models.Category, { foreignKey: 'category_id' })
     }
   }
   Discussion.init({
@@ -22,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Discussion',
-    tableName: 'Discussions'
+    tableName: 'Discussions',
   })
   return Discussion
 }

@@ -77,6 +77,14 @@ html,body {
   padding: 5px;
 }
 
-#discussion {
-  height: 100%;
+.forum-reply {
+  border-bottom: #566e7b solid 1px;
+}
+
+/* .btn {
+  color:#475b66;
+} */
+
+.input-reply {
+  background-color: rgb(191, 190, 190);
 }

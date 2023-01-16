@@ -15,10 +15,9 @@ router.post('/signin', passport.authenticate('local', { failureRedirect: '/signi
 
 router.get('/parties', partyController.showParty)
 
-router.get('/forum/discussions/:discussionId', (req, res) => {
-  res.render('discussions')
-})
-router.get('/forum', forumController.showDiscussion)
+router.get('/forum/discussions/:discussionId', forumController.showDiscussion)
+router.post('/forum/discussions/:discussionId', forumController.postComment)
+router.get('/forum', forumController.showDiscussions)
 
 router.get('/', (req, res) => {
   res.render('index')

@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Discussion.init({
-    header: DataTypes.STRING,
-    content: DataTypes.STRING,
+    header: DataTypes.TEXT,
+    content: DataTypes.TEXT,
     user_id: DataTypes.INTEGER
   }, {
     sequelize,

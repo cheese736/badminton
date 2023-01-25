@@ -2,6 +2,7 @@
 html,body {
   background-color: #f0e9d3;
   height: 100%;
+  font-size:16px;
 }
 
 .navbar a {
@@ -36,12 +37,31 @@ html,body {
   width: 60rem;
   border-radius: 10px 10px;
   border:solid thin #475b66;
+  font-family: 'Inconsolata';
+  font-weight: 600;
+}
+
+.party-container {
+  margin-top: 50px;
+}
+.table {
+  font-size: 16 px;
+  font-family: 'Inconsolata';
+  font-weight: 600;
 }
 
 #parties td {
+  font-size: 0.8em;
+  width:auto;
   height: large;
   color: #475b66 !important;
 }
+
+#parties th {
+  font-size: 1 em;
+  height: large;
+}
+
 
 .outline {
   outline:dashed red thin;
@@ -59,14 +79,6 @@ html,body {
   border-color: #cac4b2 !important;
 }
 
-/* #sidebar {
-	display: inline-block;
-	vertical-align: top;
-	height: 100%;
-	width: 18%;
-	overflow: auto;
-} */
-
 #end-of-nav {
   font-size: 12px;
 }
@@ -78,7 +90,7 @@ html,body {
 }
 
 .forum-reply {
-  border-bottom: #566e7b solid 1px;
+  /* border-bottom: #566e7b solid 1px; */
 }
 
 /* .btn {
@@ -87,4 +99,9 @@ html,body {
 
 .input-reply {
   background-color: rgb(191, 190, 190);
+}
+
+.navbar-collapse {
+  position:absolute;
+  left: 30vw;
 }

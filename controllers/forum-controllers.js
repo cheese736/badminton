@@ -10,7 +10,7 @@ const forumController = {
     const page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || DEFAULT_LIMIT
     const category = req.query.category || false
-    console.log(category)
+    // console.log(category)
     ;(async () => {
     try {
       const { id: category_id } = await Category.findOne({
@@ -18,7 +18,7 @@ const forumController = {
         where: category ? { name: category } : {},
         raw: true
       })
-      console.log(category_id)
+      // console.log(category_id)
       const discussions = await Discussion.findAndCountAll({ 
         include: Category,
         nest: true,
@@ -42,7 +42,7 @@ const forumController = {
           where: { id },
           raw: true
         })
-        console.log(discussion)
+        // console.log(discussion)
         const comments = await Comment.findAll(
           {
             where:{ discussion_id: id },
@@ -57,6 +57,7 @@ const forumController = {
 
   postComment: (req, res) => {
     try {
+      const userId = req.user.id
       const { comment } = req.body
       const id = Number(req.params.discussionId)
       if (comment.trim() === '') throw new Error('empty string not allowed')
@@ -67,7 +68,7 @@ const forumController = {
         })
         await Comment.create({
           content: comment,
-          user_id: 128,
+          user_id: userId,
           discussion_id:id,
           created_at: Date.now(),
           updated_at: Date.now()

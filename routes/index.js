@@ -4,7 +4,7 @@ const partyController = require('../controllers/party-controllers')
 const router = express.Router()
 const userController = require('../controllers/user-controllers')
 const forumController = require('../controllers/forum-controllers')
-
+const { authenticated } = require('../middlewares/auth')
 
 
 // route for normal users
@@ -16,7 +16,7 @@ router.post('/signin', passport.authenticate('local', { failureRedirect: '/signi
 router.get('/parties', partyController.showParty)
 
 router.get('/forum/discussions/:discussionId', forumController.showDiscussion)
-router.post('/forum/discussions/:discussionId', forumController.postComment)
+router.post('/forum/discussions/:discussionId', authenticated,forumController.postComment)
 router.get('/forum', forumController.showDiscussions)
 
 router.get('/', (req, res) => {

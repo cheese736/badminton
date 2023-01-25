@@ -3,6 +3,7 @@ const session = require('express-session')
 const handlebars = require('express-handlebars')
 const flash = require('connect-flash')
 const passport = require('passport')
+const { getUser } = require('./helpers/auth-helpers')
 const routes = require('./routes')
 const app = express()
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
@@ -15,6 +16,7 @@ app.set('view engine', 'hbs')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(session({
+  store:'',
   secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false
@@ -25,6 +27,7 @@ app.use(flash())
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages')
   res.locals.error_messages = req.flash('error_messages')
+  res.locals.user = getUser(req)
   next()
 })
 

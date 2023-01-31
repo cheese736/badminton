@@ -7,5 +7,8 @@ module.exports = {
   ifCond: function (a, b, options) {
     return a === b ? options.fn(this) : options.inverse(this)
   },
-  relativeTimeFromNow: a => dayjs(a).fromNow()
+  relativeTimeFromNow: (a) => dayjs(a).fromNow(),
+  ifInclude: function (a, b, options) {
+    return a.includes(b) ? options.fn(this) : options.inverse(this)
+  },
 }

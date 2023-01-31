@@ -1,8 +1,11 @@
-
-html,body {
+* {
+  box-sizing: border-box;
+}
+html,
+body {
   background-color: #f0e9d3;
-  height: 100%;
-  font-size:16px;
+  /* height: 100%; */
+  font-size: 16px;
 }
 
 .navbar a {
@@ -19,10 +22,11 @@ html,body {
   color: #566e7b !important;
 }
 
+.forum-card,
 .side-bar {
   border-right: medium solid #475b66 !important;
+  max-width: 100%;
 }
-
 
 .navbar a:hover {
   color: #cac4b2 !important;
@@ -30,13 +34,13 @@ html,body {
 
 #navbar {
   background-color: #475b66 !important;
-  height: 10%;
+  height: 10vh;
 }
 
 .forum-card {
   width: 60rem;
   border-radius: 10px 10px;
-  border:solid thin #475b66;
+  border: solid thin #475b66;
   font-family: 'Inconsolata';
   font-weight: 600;
 }
@@ -52,7 +56,7 @@ html,body {
 
 #parties td {
   font-size: 0.8em;
-  width:auto;
+  width: auto;
   height: large;
   color: #475b66 !important;
 }
@@ -62,14 +66,13 @@ html,body {
   height: large;
 }
 
-
 .outline {
-  outline:dashed red thin;
+  outline: dashed red thin;
 }
 
 /* pagination */
 
-.pagination li a{
+.pagination li a {
   color: #475b66;
   font-weight: 500;
 }
@@ -83,25 +86,30 @@ html,body {
   font-size: 12px;
 }
 
-#signup, #signin {
+#signup,
+#signin {
   background-color: rgb(255, 250, 246);
   border-radius: 5px;
   padding: 5px;
 }
 
-.forum-reply {
-  /* border-bottom: #566e7b solid 1px; */
-}
-
-/* .btn {
-  color:#475b66;
-} */
-
 .input-reply {
   background-color: rgb(191, 190, 190);
 }
 
-.navbar-collapse {
-  position:absolute;
-  left: 30vw;
+.icon {
+  font-size: 10px !important;
+}
+
+.fa-heart {
+  color: rgb(203, 67, 67);
+}
+
+.fa-thumbs-up {
+  color: rgb(42, 81, 198);
+}
+
+#avatar-in-nav {
+  height: 64px;
+  border-radius: 50%;
 }

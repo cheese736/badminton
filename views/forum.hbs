@@ -1,4 +1,4 @@
-<div class="container-fluid" >
+<div class="container-fluid">
   <div class="row vh-100">
     {{!-- side bar --}}
     <div class="col-2 p-1 side-bar">
@@ -39,7 +39,7 @@
         <div class="card-body p-1 forum-card d-flex my-2">
           <div class="media forum-item col-1">
             <a href="#" data-toggle="collapse" data-target=".forum-content">
-              <img src="https://picsum.photos/200" class="mr-3 rounded-circle" width="50" alt="User">
+              <img src={{this.User.avatar}} class="mr-3 rounded-circle" width="50" alt="User">
             </a>
           </div>
           <div class="media-body col-9 d-flex flex-column">
@@ -75,7 +75,8 @@
               <a class="page-link " href="/forum?page={{pagination.prev}}" aria-label="Previous">&laquo;</a>
             </li>
             {{#each pagination.pages}}
-              <li class="page-item {{#ifCond this ../pagination.currentPage}}active{{/ifCond}}"><a class="page-link" href="/forum?page={{this}}">{{this}}</a></li>
+            <li class="page-item {{#ifCond this ../pagination.currentPage}}active{{/ifCond}}"><a class="page-link"
+                href="/forum?page={{this}}">{{this}}</a></li>
             {{/each}}
             <li class="page-item {{#ifCond pagination.currentPage pagination.totalPage}}disabled{{/ifCond}}">
               <a class="page-link " href="/forum?page={{pagination.next}}">&raquo;</a>

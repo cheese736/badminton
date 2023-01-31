@@ -32,28 +32,38 @@
       </ul>
     </div>
     {{!-- certain discussion --}}
-    <div class="col-8 p-3" data-bs-spy="scroll">
-      <div class="text-center forum-card">
+    <div class="col-8 p-3 outline d-flex flex-column align-items-center" data-bs-spy="scroll">
+      <div class="text-center forum-card" style="max-width: 100%">
         <div class="card-header">
-          This is card header
+          <h3>{{discussion.header}}</h3>
         </div>
         <div class="card-body d-flex">
-          <div class="media col-1">col-1</div>
-          <div class="media col-11">col-11</div>
+          <div class="media col-1"><img src={{discussion.User.avatar}} class="mr-3 rounded-circle" width="50"
+              alt="User"></div>
+          <div class="media col-11">{{discussion.content}}</div>
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-8"></div>
-            <div class="col-1"> <span style="font-size: 8px"> 2 days ago</span></div>
-            <div class="col-1">
-              <button class="btn">
-                <i class="fa-regular fa-heart"></i>
-              </button>
-            </div>
-            <div class="col-2">
-              <button type="button" class="btn btn-sm">
+            <div class="col-1 align-items-center outline"> <span style="font-size: 8px"> 2d ago</span></div>
+            <div class="col-8 outline"></div>
+            <div class="col-3 outline py-0 d-flex justify-content-end ">
+              {{!-- 判斷使用者是否like此主題 --}}
+              {{#ifInclude likedThings 0}}
+              <form action="/like/discussion/{{discussion.id}}?_method=DELETE" method="POST">
+                <button class="btn btn-sm p-0 icon">
+                  <i class="fa-solid fa-heart"></i> Like
+                </button>
+              </form>
+              {{else}}
+              <form action="/like/discussion/{{discussion.id}}" method="POST">
+                <button class="btn btn-sm p-0 icon">
+                  <i class="fa-regular fa-heart"></i> Like
+                </button>
+              </form>
+              {{/ifInclude}}
+              <a href="#reply-input">
                 <i class="fa-solid fa-reply"></i> Reply
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -62,23 +72,48 @@
         <div class="card-body">
           {{#each comments}}
           <div class="row">
-            <div class="forum-reply col-1">col-1</div>
-            <div class="forum-reply col-11">
+            <div class="forum-reply col-1">
+              <div>
+                <img src={{this.User.avatar}} class="mr-3 rounded-circle" width="50" alt="User">
+              </div>
+            </div>
+            <div class="forum-reply col-10">
               {{this.content}}
             </div>
+            <div class="col-1 d-flex align-items-center">
+              {{!-- 判斷使用者有like過哪些評論 --}}
+              {{#ifInclude ../likedThings this.id}}
+              {{!-- 按過like的 圖示改實心 --}}
+              <form action="/like/discussion/{{../discussion.id}}/comment/{{this.id}}?_method=DELETE" method="POST">
+                <button class="btn btn-sm">
+                  <i class="fa-solid fa-thumbs-up"></i>
+                </button>
+              </form>
+              {{else}}
+              <form action="/like/discussion/{{../discussion.id}}/comment/{{this.id}}" method="POST">
+                <button class="btn btn-sm">
+                  <i class="fa-regular fa-thumbs-up"></i>
+                </button>
+              </form>
+              {{/ifInclude}}
+            </div>
+            <hr class="hr-comment mt-1">
           </div>
           {{/each}}
         </div>
       </div>
       <form action="/forum/discussions/{{discussion.id}}" method="POST">
-        <div class="input-group m-3">
-          <input type="text" class="form-control input-reply" placeholder="發表回覆" aria-label="Recipient's username"
-            aria-describedby="button-addon2" name="comment">
-          <button type="submit" class="btn btn-sm">
+        <div class="input-group m-3" style="max-width:100%;">
+          <input type="text" class="form-control" placeholder="發表回覆" aria-label="Recipient's username"
+            aria-describedby="button-addon2" name="comment" id="reply-input">
+          <button type="submit" class="btn btn-sm icon">
             <i class="fa-solid fa-reply"></i> Reply
           </button>
         </div>
       </form>
     </div>
   </div>
+</div>
+<div>
+
 </div>

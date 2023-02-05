@@ -5,7 +5,8 @@ const router = express.Router()
 const userController = require('../controllers/user-controllers')
 const forumController = require('../controllers/forum-controllers')
 const { authenticated } = require('../middlewares/auth')
-
+const upload = require('../middlewares/multer')
+const { localFileHandler } = require('../helpers/file-helpers')
 // route for normal users
 // user controll
 router.get('/signup', userController.signUpPage)
@@ -19,6 +20,13 @@ router.post(
   }),
   userController.signIn
 )
+router.put(
+  '/users/:userId/avatar',
+  authenticated,
+  upload.single('avatar'),
+  userController.putUser
+)
+router.get('/users/:userId', authenticated, userController.getUser)
 router.get('/logout', userController.logout)
 
 router.get('/parties', partyController.showParty)

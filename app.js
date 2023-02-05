@@ -8,6 +8,7 @@ const { getUser } = require('./helpers/auth-helpers')
 const routes = require('./routes')
 const app = express()
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
+const path = require('path')
 
 const port = 3000
 const SESSION_SECRET = 'secret'
@@ -15,6 +16,7 @@ const SESSION_SECRET = 'secret'
 app.engine('hbs', handlebars({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
 app.use(express.static('public'))
+app.use('/upload', express.static(path.join(__dirname, 'upload')))
 app.use(express.urlencoded({ extended: true }))
 app.use(
   session({

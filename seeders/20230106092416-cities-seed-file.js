@@ -37,7 +37,6 @@ module.exports = {
       {},
       {
         truncate: true,
-        cascade: true,
         restartIdentity: true,
       }
     )

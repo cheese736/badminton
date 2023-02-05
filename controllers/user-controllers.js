@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs')
-const { User } = require('../models')
+const { User, City } = require('../models')
+const dayjs = require('dayjs')
+const { localFileHandler } = require('../helpers/file-helpers')
 
 /* define controll functions */
 const userController = {
@@ -32,6 +34,7 @@ const userController = {
   },
   signIn: (req, res) => {
     req.flash('success_messages', '成功登入！')
+    console.log(req.user.city)
     res.redirect('/')
   },
   logout: (req, res) => {
@@ -39,9 +42,40 @@ const userController = {
     req.logout()
     res.redirect('/')
   },
-  getUser: () => {},
+  getUser: (req, res) => {
+    try {
+      const userId = req.user.id
+      ;(async () => {
+        const user = await User.findOne({
+          include: [City],
+          where: { id: userId },
+          raw: true,
+          nest: true,
+        })
+        user.createdAt = dayjs(user.createdAt).format('YYYY-MM-DD')
+        res.render('users', { user })
+      })()
+    } catch (err) {
+      console.log(err)
+    }
+  },
   editUser: () => {},
-  putUser: () => {},
+  putUser: (req, res) => {
+    try {
+      if (req.file) {
+        const file = req.file
+        const userId = req.user.id
+        ;(async () => {
+          const path = await localFileHandler(file)
+          await User.update({ avatar: path }, { where: { id: userId } })
+          req.flash('success_messages', '圖片上傳成功')
+          res.redirect(`/users/${userId}`)
+        })()
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  },
 }
 
 module.exports = userController

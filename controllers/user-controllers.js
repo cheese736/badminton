@@ -34,7 +34,6 @@ const userController = {
   },
   signIn: (req, res) => {
     req.flash('success_messages', '成功登入！')
-    console.log(req.user.city)
     res.redirect('/')
   },
   logout: (req, res) => {

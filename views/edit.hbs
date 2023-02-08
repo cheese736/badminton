@@ -1,0 +1,49 @@
+<div class="container outline mt-5">
+  <div class="row">
+    <form action="/users/{{user.id}}/avatar?_method=PUT" method="POST" enctype="multipart/form-data"></form>
+    <div class="col-2">
+      <div class="mb-1">
+        <img src="{{user.avatar}}" alt="User's avatar" id="avatar-in-users">
+      </div>
+      <div class="form-row mb-3">
+        <input class="form-control" type="file" class="form-control-file" id="avatar" name="avatar">
+      </div>
+
+    </div>
+    <div class="col-6">
+      <ul class="list-group list-group-flush">
+
+        <div class="form-group row">
+          <label for="" class="col-sm-2 col-form-label">暱稱:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" id="" value={{user.name}}>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="" class="col-sm-2 col-form-label">Email:</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control-plaintext" id="" value={{user.email}}>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="" class="col-sm-2 col-form-label">居住地:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control-plaintext" id="" value={{user.City.name}}>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="" class="col-sm-2 col-form-label">註冊日:</label>
+          <div class="col-sm-10">
+            <input type="date" readonly class="form-control-plaintext" id="" value={{user.createdAt}}>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-sm btn-primary">提交</button>
+      </ul>
+    </div>
+    </form>
+    <div class="col-4">col</div>
+  </div>
+</div>

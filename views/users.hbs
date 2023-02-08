@@ -1,15 +1,9 @@
 <div class="container outline mt-5">
   <div class="row">
     <div class="col-2">
-      <div class="mb-1">
+      <div class="p-1">
         <img src="{{user.avatar}}" alt="User's avatar" id="avatar-in-users">
       </div>
-      <form action="/users/{{user.id}}/avatar?_method=PUT" method="POST" enctype="multipart/form-data">
-        <div class="form-row mb-3">
-          <input class="form-control" type="file" class="form-control-file" id="avatar" name="avatar">
-        </div>
-        <button type="submit" class="btn btn-primary">重新上傳</button>
-      </form>
     </div>
     <div class="col-6">
       <ul class="list-group list-group-flush">

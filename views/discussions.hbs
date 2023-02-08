@@ -32,7 +32,7 @@
       </ul>
     </div>
     {{!-- certain discussion --}}
-    <div class="col-8 p-3 outline d-flex flex-column align-items-center" data-bs-spy="scroll">
+    <div class="col-8 p-3  d-flex flex-column align-items-center" data-bs-spy="scroll">
       <div class="text-center forum-card" style="max-width: 100%">
         <div class="card-header">
           <h3>{{discussion.header}}</h3>
@@ -44,9 +44,10 @@
         </div>
         <div class="card-footer text-muted">
           <div class="row">
-            <div class="col-1 align-items-center outline"> <span style="font-size: 8px"> 2d ago</span></div>
-            <div class="col-8 outline"></div>
-            <div class="col-3 outline py-0 d-flex justify-content-end ">
+            <div class="col-2 align-items-center "> <span style="font-size: 8px">{{#relativeTimeFromNow
+                discussion.createdAt}}{{/relativeTimeFromNow}}</span></div>
+            <div class="col-7 "></div>
+            <div class="col-3  py-0 d-flex justify-content-end ">
               {{!-- 判斷使用者是否like此主題 --}}
               {{#ifInclude likedThings 0}}
               <form action="/like/discussion/{{discussion.id}}?_method=DELETE" method="POST">
@@ -61,8 +62,9 @@
                 </button>
               </form>
               {{/ifInclude}}
-              <a href="#reply-input">
-                <i class="fa-solid fa-reply"></i> Reply
+              <a href="#reply-input" id="direct-to-reply">
+                <i class="fa-solid fa-reply align-bottom"></i>
+                <span class="align-bottom">Reply</span>
               </a>
             </div>
           </div>
@@ -76,6 +78,9 @@
               <div>
                 <img src={{this.User.avatar}} class="mr-3 rounded-circle" width="50" alt="User">
               </div>
+              <span style="font-size: 8px;">
+                {{#relativeTimeFromNow this.createdAt}}{{/relativeTimeFromNow}}
+              </span>
             </div>
             <div class="forum-reply col-10">
               {{this.content}}
@@ -103,8 +108,8 @@
         </div>
       </div>
       <form action="/forum/discussions/{{discussion.id}}" method="POST">
-        <div class="input-group m-3" style="max-width:100%;">
-          <input type="text" class="form-control" placeholder="發表回覆" aria-label="Recipient's username"
+        <div class="input-group m-2" style="max-width:100%;">
+          <input type="textarea" class="form-control" placeholder="發表回覆" aria-label="Recipient's username"
             aria-describedby="button-addon2" name="comment" id="reply-input">
           <button type="submit" class="btn btn-sm icon">
             <i class="fa-solid fa-reply"></i> Reply

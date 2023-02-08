@@ -43,7 +43,7 @@ const userController = {
   },
   getUser: (req, res) => {
     try {
-      const userId = req.user.id
+      const userId = req.params.userId
       ;(async () => {
         const user = await User.findOne({
           include: [City],
@@ -58,7 +58,23 @@ const userController = {
       console.log(err)
     }
   },
-  editUser: () => {},
+  editUser: (req, res) => {
+    try {
+      const userId = req.user.id
+      ;(async () => {
+        const user = await User.findOne({
+          include: [City],
+          where: { id: userId },
+          raw: true,
+          nest: true,
+        })
+        user.createdAt = dayjs(user.createdAt).format('YYYY-MM-DD')
+        res.render('edit', { user })
+      })()
+    } catch (err) {
+      console.log(err)
+    }
+  },
   putUser: (req, res) => {
     try {
       if (req.file) {

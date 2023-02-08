@@ -6,7 +6,7 @@ const userController = require('../controllers/user-controllers')
 const forumController = require('../controllers/forum-controllers')
 const { authenticated } = require('../middlewares/auth')
 const upload = require('../middlewares/multer')
-const { localFileHandler } = require('../helpers/file-helpers')
+
 // route for normal users
 // user controll
 router.get('/signup', userController.signUpPage)
@@ -26,6 +26,8 @@ router.put(
   upload.single('avatar'),
   userController.putUser
 )
+
+router.get('/users/:userId/edit', authenticated, userController.editUser)
 router.get('/users/:userId', authenticated, userController.getUser)
 router.get('/logout', userController.logout)
 

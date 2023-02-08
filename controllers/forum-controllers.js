@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 const { User, Discussion, Category, Comment, Like } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helpers')
-
+const sequelize = require('sequelize')
 /* define controll functions */
 
 const forumController = {
@@ -10,7 +10,6 @@ const forumController = {
     const page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || DEFAULT_LIMIT
     const category = req.query.category || false
-    // console.log(category)
     ;(async () => {
       try {
         const { id: category_id } = await Category.findOne({
@@ -18,7 +17,6 @@ const forumController = {
           where: category ? { name: category } : {},
           raw: true,
         })
-        // console.log(category_id)
         const discussions = await Discussion.findAndCountAll({
           include: [Category, User],
           nest: true,
@@ -26,6 +24,32 @@ const forumController = {
           limit: limit,
           offset: getOffset(limit, page),
           where: category && category_id ? { category_id } : {},
+        })
+        const comments = await Comment.findAll({
+          include: { model: User },
+          attributes: [
+            'discussion_id',
+            [
+              sequelize.fn('MAX', sequelize.col('comment.id')),
+              'latestCommentId',
+            ],
+            'content',
+            [sequelize.col('user.name'), 'userName'],
+            [sequelize.col('user.name'), 'userId'],
+          ],
+          group: 'discussion_id',
+          raw: true,
+          nest: true,
+        })
+        console.log(comments)
+        discussions.rows.map((item) => {
+          const latestComment = comments.filter(
+            (comment) => comment.discussion_id === item.id
+          )
+          item.latestComment = latestComment
+          item.userName = latestComment.userName
+          item.commenterId = latestComment.userId
+          return item
         })
         const pagination = getPagination(limit, page, discussions.count)
         res.render('forum', { discussions: discussions.rows, pagination })
@@ -52,7 +76,6 @@ const forumController = {
             raw: true,
           })) || []
         likedThings = likedThings.map((el) => el.comment_id)
-        console.log(likedThings)
         const discussion = await Discussion.findOne({
           include: { model: User },
           where: { id: discussion_id },

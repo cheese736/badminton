@@ -17,7 +17,7 @@ const forumController = {
           where: category ? { name: category } : {},
           raw: true,
         })
-        const discussions = await Discussion.findAndCountAll({
+        let discussions = await Discussion.findAndCountAll({
           include: [Category, User],
           nest: true,
           raw: true,
@@ -27,30 +27,54 @@ const forumController = {
         })
         const comments = await Comment.findAll({
           include: { model: User },
+          // attributes: [
+          //   'discussion_id',
+          //   [
+          //     sequelize.fn('MAX', sequelize.col('comment.id')),
+          //     'latestCommentId',
+          //   ],
+          //   [sequelize.col('comment.id'), 'latestCommentId'],
+          //   sequelize.col('comment.content'),
+          //   ['user_id', 'userId'],
+          //   ['created_at', 'createdAt'],
+          //   [sequelize.col('user.name'), 'userName'],
+          // ],
+          group: ['discussion_id'],
+          order: [['id', 'DESC']],
+          raw: true,
+          nest: true,
+          limit: 10,
+        })
+        console.log(comments)
+        const commentCounts = await Comment.findAll({
+          include: { model: Discussion },
           attributes: [
             'discussion_id',
             [
-              sequelize.fn('MAX', sequelize.col('comment.id')),
-              'latestCommentId',
+              sequelize.fn('COUNT', sequelize.col('comment.id')),
+              'numberOfComments',
             ],
-            'content',
-            [sequelize.col('user.name'), 'userName'],
-            [sequelize.col('user.name'), 'userId'],
           ],
           group: 'discussion_id',
           raw: true,
           nest: true,
         })
-        console.log(comments)
-        discussions.rows.map((item) => {
-          const latestComment = comments.filter(
-            (comment) => comment.discussion_id === item.id
-          )
-          item.latestComment = latestComment
-          item.userName = latestComment.userName
-          item.commenterId = latestComment.userId
-          return item
-        })
+
+        // discussions.rows = discussions.rows.map((item) => {
+        //   const latestComment = comments.find(
+        //     (comment) => comment.discussion_id === item.id
+        //   )
+        //   const count = commentCounts.find(
+        //     (result) => result.discussion_id === item.id
+        //   )
+        //   item.latestComment = latestComment.content
+        //   item.commentedTime = latestComment.createdAt
+        //   item.latestCommenter = latestComment.userName
+        //   item.commenterId = latestComment.userId
+        //   item.numberOfComments = count.numberOfComments
+        //   return item
+        // })
+        // console.log(discussions.rows[0])
         const pagination = getPagination(limit, page, discussions.count)
         res.render('forum', { discussions: discussions.rows, pagination })
       } catch (err) {
@@ -63,6 +87,10 @@ const forumController = {
     try {
       // get discussionId from URL parameters
       const discussion_id = Number(req.params.discussionId)
+      // views +1 nomatter the client is a website member
+      Discussion.findOne({ where: { id: discussion_id } }).then((i) =>
+        i.increment('views')
+      )
       // get userId if exist
       const user_id = req.user ? req.user.id : null
       ;(async () => {

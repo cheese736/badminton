@@ -43,16 +43,16 @@ const userController = {
   },
   getUser: (req, res) => {
     try {
-      const userId = req.params.userId
+      const fanId = req.params.userId
       ;(async () => {
-        const user = await User.findOne({
+        const fan = await User.findOne({
           include: [City],
-          where: { id: userId },
+          where: { id: fanId },
           raw: true,
           nest: true,
         })
-        user.createdAt = dayjs(user.createdAt).format('YYYY-MM-DD')
-        res.render('users', { user })
+        fan.createdAt = dayjs(fan.createdAt).format('YYYY-MM-DD')
+        res.render('users', { fan })
       })()
     } catch (err) {
       console.log(err)

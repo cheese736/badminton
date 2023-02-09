@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 'use strict'
-const {
-  Model
-} = require('sequelize')
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Discussion extends Model {
     /**
@@ -16,14 +14,18 @@ module.exports = (sequelize, DataTypes) => {
       Discussion.belongsTo(models.Category, { foreignKey: 'category_id' })
     }
   }
-  Discussion.init({
-    header: DataTypes.TEXT,
-    content: DataTypes.TEXT,
-    user_id: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Discussion',
-    tableName: 'Discussions',
-  })
+  Discussion.init(
+    {
+      header: DataTypes.TEXT,
+      content: DataTypes.TEXT,
+      user_id: DataTypes.INTEGER,
+      views: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'Discussion',
+      tableName: 'Discussions',
+    }
+  )
   return Discussion
 }

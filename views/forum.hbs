@@ -38,7 +38,7 @@
         {{#each discussions}}
         <div class="card-body p-1 forum-card d-flex my-2">
           <div class="media forum-item col-1">
-            <a href="#" data-toggle="collapse" data-target=".forum-content">
+            <a href="/users/{{this.User.id}}" data-toggle="collapse" data-target=".forum-content">
               <img src={{this.User.avatar}} class="mr-3 rounded-circle" width="50" alt="User">
             </a>
           </div>
@@ -49,22 +49,22 @@
               </a>
             </h6>
             <p class="text-muted">
-              <a href="javascript:void(0)">
-                drewdan
+              <a href="/users/{{this.commenterId}}">
+                {{this.latestCommenter}}
               </a> replied
               <span class="text-secondary font-weight-bold">
-                13 minutes ago
+                {{#relativeTimeFromNow this.commentedTime}}{{/relativeTimeFromNow}}
               </span>
             </p>
           </div>
           <div class="text-muted small text-center align-self-center col-2">
             <span class="d-none d-sm-inline-block">
               <i class="far fa-eye"></i>
-              19
+              {{this.views}}
             </span>
             <span>
               <i class="far fa-comment ml-2"></i>
-              3
+              {{this.numberOfComments}}
             </span>
           </div>
         </div>

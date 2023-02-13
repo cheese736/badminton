@@ -2,6 +2,7 @@
 const { User, Discussion, Category, Comment, Like } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helpers')
 const sequelize = require('sequelize')
+const op = sequelize.Op
 /* define controll functions */
 
 const forumController = {
@@ -25,25 +26,45 @@ const forumController = {
           offset: getOffset(limit, page),
           where: category && category_id ? { category_id } : {},
         })
+        // const comments = await Comment.findAll({
+        //   include: { model: User },
+        //   attributes: [
+        //     'discussion_id',
+        //     [
+        //       sequelize.fn('MAX', sequelize.col('comment.id')),
+        //       'latestCommentId',
+        //     ],
+        //     [sequelize.col('comment.id'), 'latestCommentId'],
+        //     sequelize.col('comment.content'),
+        //     ['user_id', 'userId'],
+        //     ['created_at', 'createdAt'],
+        //     [sequelize.col('user.name'), 'userName'],
+        //   ],
+        //   group: ['discussion_id'],
+        //   order: [['id', 'DESC']],
+        //   raw: true,
+        //   nest: true,
+        //   limit: 10,
+        // })
+
         const comments = await Comment.findAll({
           include: { model: User },
-          // attributes: [
-          //   'discussion_id',
-          //   [
-          //     sequelize.fn('MAX', sequelize.col('comment.id')),
-          //     'latestCommentId',
-          //   ],
-          //   [sequelize.col('comment.id'), 'latestCommentId'],
-          //   sequelize.col('comment.content'),
-          //   ['user_id', 'userId'],
-          //   ['created_at', 'createdAt'],
-          //   [sequelize.col('user.name'), 'userName'],
-          // ],
-          group: ['discussion_id'],
-          order: [['id', 'DESC']],
+          attributes: [
+            'discussion_id',
+            [sequelize.col('comment.id'), 'latestCommentId'],
+            ['user_id', 'userId'],
+            [sequelize.col('user.name'), 'userName'],
+            ['created_at', 'createdAt'],
+          ],
+          where: {
+            id: {
+              [op.in]: sequelize.literal(
+                '(SELECT MAX(id) FROM comments GROUP BY discussion_id)'
+              ),
+            },
+          },
           raw: true,
           nest: true,
-          limit: 10,
         })
         console.log(comments)
         const commentCounts = await Comment.findAll({
@@ -60,21 +81,23 @@ const forumController = {
           nest: true,
         })
 
-        // discussions.rows = discussions.rows.map((item) => {
-        //   const latestComment = comments.find(
-        //     (comment) => comment.discussion_id === item.id
-        //   )
-        //   const count = commentCounts.find(
-        //     (result) => result.discussion_id === item.id
-        //   )
-        //   item.latestComment = latestComment.content
-        //   item.commentedTime = latestComment.createdAt
-        //   item.latestCommenter = latestComment.userName
-        //   item.commenterId = latestComment.userId
-        //   item.numberOfComments = count.numberOfComments
-        //   return item
-        // })
-        // console.log(discussions.rows[0])
+        discussions.rows = discussions.rows.map((item) => {
+          const latestComment = comments.find(
+            (comment) => comment.discussion_id === item.id
+          )
+          // console.log(latestComment.User.name)
+          const count = commentCounts.find(
+            (result) => result.discussion_id === item.id
+          )
+          if (latestComment) {
+            item.latestComment = latestComment.content
+            item.commentedTime = latestComment.createdAt
+            item.latestCommenter = latestComment.userName
+            item.commenterId = latestComment.userId
+            item.numberOfComments = count.numberOfComments
+          }
+          return item
+        })
         const pagination = getPagination(limit, page, discussions.count)
         res.render('forum', { discussions: discussions.rows, pagination })
       } catch (err) {

@@ -24,7 +24,7 @@ body {
   font-weight: bold;
   color: #566e7b !important;
 }
-
+.party-container,
 .forum-card,
 .side-bar {
   border-right: medium solid #475b66 !important;
@@ -48,13 +48,14 @@ body {
   font-weight: 600;
 }
 
-.party-container {
-  margin-top: 50px;
-}
 .table {
   font-size: 16 px;
   font-family: 'Inconsolata';
   font-weight: 600;
+}
+
+#parties {
+  margin-top: 20px;
 }
 
 #parties td {
@@ -124,4 +125,11 @@ body {
   font-size: 12px;
   text-decoration: none;
   color: #475b66;
+}
+
+.checkbox-list li {
+}
+
+.hide {
+  display: none;
 }

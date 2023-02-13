@@ -1,5 +1,6 @@
-<div class="container-fluid min-vh-100 outline">
-  <div class="row">
+<div class="container-fluid ">
+  <div class="row min-vh-100 ">
+
     {{!-- sidebar --}}
     <div class="col-2 side-bar" id="sidebar">
       <form action="">
@@ -11,33 +12,56 @@
           <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
-        <p class="mb-2"></p>
       </form>
+      <ul id="checkbox-list" class="list-unstyled">
+        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="0" checked>Mon.</li>
+        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="1" checked>Tues.</li>
+        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="2" checked>Wed.</li>
+        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="3" checked>Thur.</li>
+        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="4" checked>Fri.</li>
+        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="5" checked>Sat.</li>
+        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="6" checked>Sun.</li>
+      </ul>
     </div>
+
     {{!-- parties --}}
-    <div class="outline col-8 party-container">
-      <table class="table" id="parties">
-        <thead>
-          <tr>
-            <th scope="col"><nobr>活動名稱</nobr></th>
-            <th scope="col"><nobr>主揪</nobr></th>
-            <th scope="col"><nobr>聯絡方式</nobr></th>
-            <th scope="col"><nobr>星期幾</nobr></th>
-            <th scope="col"><nobr>球場資訊</nobr></th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each parties}}
-          <tr>
-            <td>{{this.name}}</td>
-            <td>{{this.host_name}}</td>
-            <td>{{this.contact}}</td>
-            <td>{{this.day_of_the_week}}</td>
-            <td>{{this.court_location}}</td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
+    <div class="col-9 party-container">
+      <div class="container justify-content-center">
+        <table class="table table-striped " id="parties">
+          <thead>
+            <tr>
+              <th scope="col">
+                <nobr>團體(活動)名稱</nobr>
+              </th>
+              <th scope="col">
+                <nobr>主揪</nobr>
+              </th>
+              <th scope="col">
+                <nobr>聯絡方式</nobr>
+              </th>
+              <th scope="col">
+                <nobr>星期幾</nobr>
+              </th>
+              <th scope="col">
+                <nobr>球場資訊</nobr>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each parties}}
+            <tr>
+              <td>{{this.name}}</td>
+              <td>{{this.host_name}}</td>
+              <td>{{this.contact}}</td>
+              <td class="days" value={{this.day_of_the_week}}>{{this.day}}</td>
+              <td>{{this.court_location}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+
+      </div>
     </div>
   </div>
 </div>
+<script type="text/javascript" src="/scripts/filter.js"></script>

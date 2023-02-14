@@ -46,7 +46,27 @@ passport.use(
       profileFields: ['emails', 'displayName', 'photos'],
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile)
+      try {
+        const { name, email, picture } = profile._json
+        ;(async () => {
+          let user = await User.findOne({
+            where: { email },
+          })
+          if (user) return done(null, user)
+          const randomPassword = Math.random().toString(36).slice(-8)
+          const salt = await bcrypt.genSalt(10)
+          const password = await bcrypt.hash(randomPassword, salt)
+          user = await User.create({
+            name,
+            email,
+            password,
+            avatar: picture.data.url,
+          })
+          return done(null, user)
+        })()
+      } catch (e) {
+        console.log(e)
+      }
     }
   )
 )

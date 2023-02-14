@@ -9,8 +9,22 @@ const upload = require('../middlewares/multer')
 
 // route for normal users
 // third-party-login
-// router.get('/facebook',userController.)
-// router.get('/google',userController.)
+router.get(
+  '/google',
+  passport.authenticate('google', {
+    scope: ['profile', 'email'],
+    successRedirect: '/',
+    failureRedirect: '/users/login',
+  })
+)
+
+router.get(
+  '/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/users/login',
+  })
+)
 
 router.get(
   '/facebook',

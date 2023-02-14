@@ -5,14 +5,18 @@ const flash = require('connect-flash')
 const methodOverride = require('method-override')
 const passport = require('passport')
 const { getUser } = require('./helpers/auth-helpers')
-const routes = require('./routes')
+
 const app = express()
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
 const path = require('path')
-
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({ path: path.resolve(__dirname, '.env') })
+}
+console.log(process.env)
 const port = 3000
 const SESSION_SECRET = 'secret'
-
+const routes = require('./routes')
 app.engine('hbs', handlebars({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
 app.use(express.static('public'))

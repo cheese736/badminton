@@ -3,25 +3,40 @@
 
     {{!-- sidebar --}}
     <div class="col-2 side-bar" id="sidebar">
+      <h5 class="p-1 text-center">Filtering & Sorting</h5>
+      <hr>
       <form action="">
-        <h6 class="p-1 border-bottom">Filter By</h6>
-        <p class="mb-2">地區</p>
+        <h6 class="mb-2">地區</h6>
         <select class="form-select border-bottom" aria-label="Default select example">
           <option selected>Open this select menu</option>
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
+        <hr>
       </form>
+      <h6 class="mb-2">星期</h6>
       <ul id="checkbox-list" class="list-unstyled">
-        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="0" checked>Mon.</li>
-        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="1" checked>Tues.</li>
-        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="2" checked>Wed.</li>
-        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="3" checked>Thur.</li>
-        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="4" checked>Fri.</li>
-        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="5" checked>Sat.</li>
-        <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="6" checked>Sun.</li>
+        <div class="row">
+          <div class="col">
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="0" checked>Mon.</li>
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="1" checked>Tues.</li>
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="2" checked>Wed.</li>
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="3" checked>Thur.</li>
+
+          </div>
+          <div class="col">
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="4" checked>Fri.</li>
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="5" checked>Sat.</li>
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="6" checked>Sun.</li>
+          </div>
+        </div>
+        <hr>
       </ul>
+      <h6 class="mb-2">團體名稱</h6>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="輸入團體名稱..." aria-label="Partyname" id="partyName">
+      </div>
     </div>
 
     {{!-- parties --}}

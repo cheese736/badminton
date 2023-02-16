@@ -39,12 +39,12 @@
         </a>
         <ul class="mb-0 p-0" style="list-style-type: none;" id="end-of-nav">
           <li class="m-1 ">
-            <a href={{#if user}}'/logout'{{else}}'/signin'{{/if}} style="text-decoration:none; color:rgb(24, 23, 23)">
+            <a href={{#if user}}'/logout'{{else}}'/signin'{{/if}}>
               {{#if user}}Logout{{else}}Login{{/if}}
             </a>
           </li>
-          <li class="m-1"><a href="/signup" style="text-decoration:none; color:rgb(24, 23, 23)">Sign up</a></li>
-          <li class="m-1"><a href="#" style="text-decoration:none; color:rgb(24, 23, 23)">About us</a></li>
+          <li class="m-1"><a href="/signup">Sign up</a></li>
+          <li class="m-1"><a href="#" data-bs-toggle="modal" data-bs-target="#aboutUs">About us</a></li>
         </ul>
       </div>
     </div>

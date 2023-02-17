@@ -1,18 +1,29 @@
-<div class="container outline mt-5">
-  <div class="row">
-    <div class="col-2">
-      <div class="p-1">
-        <img src="{{fan.avatar}}" alt="User's avatar" id="avatar-in-users">
+<div class="container mt-5 rounded shadow-lg border" id="userInfo">
+  <div class="row mb-2">
+    <div class="col-2 ">
+      <p class="m-1 text-center">Avatar</p>
+      <div class="p-1 text-center">
+        <img src="{{fan.avatar}}" alt="User's avatar" id="avatar-in-users" style="max-width:100%; height:auto">
       </div>
     </div>
     <div class="col-6">
-      <ul class="list-group list-group-flush">
+      <p class="m-1 text-center">
+        Personal Information
+        <a href="/">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+      </p>
+      <ul class="list-group list-group-flush rounded">
         <li class="list-group-item">暱稱: {{fan.name}}</li>
         <li class="list-group-item">Email: {{fan.email}}</li>
         <li class="list-group-item">居住地: {{fan.City.name}}</li>
         <li class="list-group-item">註冊日: {{fan.createdAt}}</li>
       </ul>
+
     </div>
-    <div class="col-4">col</div>
+    <div class="col-4">
+      <p class="m-1 text-center">Recent activity</p>
+      <h2 class="p-5">To Be Contructed</h2>
+    </div>
   </div>
 </div>

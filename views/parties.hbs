@@ -3,15 +3,15 @@
 
     {{!-- sidebar --}}
     <div class="col-2 side-bar" id="sidebar">
-      <h5 class="p-1 text-center">Filtering & Sorting</h5>
+      <h5 class="p-1 text-center">Filering</h5>
       <hr>
       <form action="">
         <h6 class="mb-2">地區</h6>
-        <select class="form-select border-bottom" aria-label="Default select example">
-          <option selected>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select class="form-select border-bottom" id="city-select" aria-label="Default select example">
+          <option value="0" selected>全部</option>
+          {{#each cities}}
+          <option value="{{this.id}}">{{this.name}}</option>
+          {{/each}}
         </select>
         <hr>
       </form>
@@ -58,6 +58,9 @@
                 <nobr>星期幾</nobr>
               </th>
               <th scope="col">
+                <nobr>城市</nobr>
+              </th>
+              <th scope="col">
                 <nobr>球場資訊</nobr>
               </th>
             </tr>
@@ -69,6 +72,7 @@
               <td>{{this.host_name}}</td>
               <td>{{this.contact}}</td>
               <td class="days" value={{this.day_of_the_week}}>{{this.day}}</td>
+              <td class="cities" value={{this.City.id}}>{{this.City.name}}</td>
               <td>{{this.court_location}}</td>
             </tr>
             {{/each}}

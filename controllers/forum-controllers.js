@@ -1,6 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 const { User, Discussion, Category, Comment, Like } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helpers')
+const {
+  viewsCompareFn,
+  commentsCompareFn,
+} = require('../helpers/sorting-helpers')
 const sequelize = require('sequelize')
 const op = sequelize.Op
 /* define controll functions */
@@ -66,7 +70,7 @@ const forumController = {
           raw: true,
           nest: true,
         })
-        console.log(comments)
+
         const commentCounts = await Comment.findAll({
           include: { model: Discussion },
           attributes: [
@@ -81,11 +85,11 @@ const forumController = {
           nest: true,
         })
 
+        // 將取得的discussion加上最後評論的相關資訊
         discussions.rows = discussions.rows.map((item) => {
           const latestComment = comments.find(
             (comment) => comment.discussion_id === item.id
           )
-          // console.log(latestComment.User.name)
           const count = commentCounts.find(
             (result) => result.discussion_id === item.id
           )
@@ -98,14 +102,24 @@ const forumController = {
           }
           return item
         })
+        const topViewedDis = [...discussions.rows]
+          .sort(viewsCompareFn)
+          .slice(0, 5)
+        const topCommentedDis = [...discussions.rows]
+          .sort(commentsCompareFn)
+          .slice(0, 5)
         const pagination = getPagination(limit, page, discussions.count)
-        res.render('forum', { discussions: discussions.rows, pagination })
+        res.render('forum', {
+          discussions: discussions.rows,
+          pagination,
+          topViewedDis,
+          topCommentedDis,
+        })
       } catch (err) {
         console.log(err)
       }
     })()
   },
-
   showDiscussion: (req, res) => {
     try {
       // get discussionId from URL parameters

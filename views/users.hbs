@@ -9,9 +9,10 @@
     <div class="col-6">
       <p class="m-1 text-center">
         Personal Information
-        <a href="/">
-          <i class="fa-solid fa-pen-to-square"></i>
+        {{#ifCond user.id fan.id}}<a href="/">
+          <i class="fa-solid fa-pen-to-square icon"></i>
         </a>
+        {{/ifCond}}
       </p>
       <ul class="list-group list-group-flush rounded">
         <li class="list-group-item">暱稱: {{fan.name}}</li>

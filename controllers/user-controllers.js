@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const { User, City } = require('../models')
 const dayjs = require('dayjs')
 const { localFileHandler } = require('../helpers/file-helpers')
+const { Op } = require('sequelize')
 
 /* define controll functions */
 const userController = {
@@ -68,27 +69,50 @@ const userController = {
           raw: true,
           nest: true,
         })
+        const cities = await City.findAll({
+          raw: true,
+        })
         user.createdAt = dayjs(user.createdAt).format('YYYY-MM-DD')
-        res.render('edit', { user })
+        res.render('edit', { user, cities })
       })()
     } catch (err) {
       console.log(err)
     }
   },
-  putUser: (req, res) => {
+  putUser: (req, res, next) => {
+    const file = req.file
+    const userId = req.user.id
+    const { name, email, city } = req.body
+    if (!name && email) throw new Error('Invalid input')
+    if (userId !== Number(req.params.userId)) throw new Error('Permission deny')
     try {
-      if (req.file) {
-        const file = req.file
-        const userId = req.user.id
-        ;(async () => {
-          const path = await localFileHandler(file)
-          await User.update({ avatar: path }, { where: { id: userId } })
-          req.flash('success_messages', '圖片上傳成功')
-          res.redirect(`/users/${userId}`)
-        })()
-      }
+      (async () => {
+        // handling image file if exist
+        const emailExist = await User.findOne({
+          where: { id: { [Op.ne]: userId }, email },
+        })
+        if (emailExist) {
+          throw new Error('Email has been used')
+        }
+        const path = await localFileHandler(file)
+        const user = await User.findByPk(userId)
+        user.update({
+          name,
+          email,
+          city,
+          avatar: path || user.avatar,
+        })
+
+        req.flash('success_messages', '資料更新成功')
+        res.redirect(`/users/${userId}`)
+        return
+      })()
     } catch (err) {
+      req.flash('error_messages', 'email已被使用')
+      res.redirect(`/users/${userId}/edit`)
+      next(err)
       console.log(err)
+      throw err
     }
   },
 }

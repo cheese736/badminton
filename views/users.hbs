@@ -9,7 +9,8 @@
     <div class="col-6">
       <p class="m-1 text-center">
         Personal Information
-        {{#ifCond user.id fan.id}}<a href="/">
+        {{#ifCond user.id fan.id}}
+        <a href="/users/{{user.id}}/edit">
           <i class="fa-solid fa-pen-to-square icon"></i>
         </a>
         {{/ifCond}}

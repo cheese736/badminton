@@ -55,7 +55,7 @@ router.post(
   userController.signIn
 )
 router.put(
-  '/users/:userId/avatar',
+  '/users/:userId',
   authenticated,
   upload.single('avatar'),
   userController.putUser

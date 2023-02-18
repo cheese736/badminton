@@ -1,49 +1,50 @@
-<div class="container outline mt-5">
-  <div class="row">
-    <form action="/users/{{user.id}}/avatar?_method=PUT" method="POST" enctype="multipart/form-data"></form>
-    <div class="col-2">
-      <div class="mb-1">
-        <img src="{{user.avatar}}" alt="User's avatar" id="avatar-in-users">
+<div class="container mt-5 rounded shadow-lg border" id="userInfo">
+  <form action="/users/{{user.id}}?_method=PUT" method="POST">
+    <div class="row mb-2">
+      <div class="col-2">
+        <p class="m-1 text-center">Avatar</p>
+        <div class="p-1 text-center">
+          <img src="{{user.avatar}}" alt="User's avatar" id="avatar-in-users" style="max-width:100%; height:auto">
+        </div>
+        <div class="input-group input-group-sm mb-5">
+          <input type="file" class="form-control" id="inputGroupFile01" accept="image/png, image/jpeg">
+        </div>
       </div>
-      <div class="form-row mb-3">
-        <input class="form-control" type="file" class="form-control-file" id="avatar" name="avatar">
+      <div class="col-6">
+        <p class="m-1 text-center">
+          Personal Information
+        </p>
+        <div class="input-group mb-1">
+          <span class="input-group-text">暱稱</span>
+          <input type="text" class="form-control" value="{{user.name}}" aria-label="Sizing example input" name="name"
+            placeholder="please enter your name" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text">Email</span>
+          <input type="email" class="form-control" value="{{user.email}}" aria-label="Sizing example input" name="email"
+            placeholder="please enter your name email" aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text">居住地</span>
+          <select class="form-select" aria-label="Default select example" name="city">
+            {{#each cities}}
+            <option value={{this.id}} {{#ifCond this.id ../user.city}}selected{{/ifCond}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="input-group mb-1">
+          <span class="input-group-text">註冊日期</span>
+          <input disabled type="email" class="form-control" value="{{user.createdAt}}" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div class="container">
+          <button type="submit" class="btn btn-light">Submit</button>
+        </div>
       </div>
-
-    </div>
-    <div class="col-6">
-      <ul class="list-group list-group-flush">
-
-        <div class="form-group row">
-          <label for="" class="col-sm-2 col-form-label">暱稱:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control-plaintext" id="" value={{user.name}}>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="" class="col-sm-2 col-form-label">Email:</label>
-          <div class="col-sm-10">
-            <input type="email" class="form-control-plaintext" id="" value={{user.email}}>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="" class="col-sm-2 col-form-label">居住地:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control-plaintext" id="" value={{user.City.name}}>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="" class="col-sm-2 col-form-label">註冊日:</label>
-          <div class="col-sm-10">
-            <input type="date" readonly class="form-control-plaintext" id="" value={{user.createdAt}}>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-sm btn-primary">提交</button>
-      </ul>
-    </div>
-    </form>
-    <div class="col-4">col</div>
+  </form>
+  <div class="col-4">
+    <p class="m-1 text-center">Recent activity</p>
+    <h2 class="p-5">To Be Contructed</h2>
   </div>
+</div>
 </div>

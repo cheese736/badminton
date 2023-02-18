@@ -29,6 +29,10 @@ const imgurFileHandler = (file) => {
   })
 }
 
+// const facebookImgHandler = (picture) => {
+  
+// }
+
 module.exports = {
   localFileHandler,
   imgurFileHandler,

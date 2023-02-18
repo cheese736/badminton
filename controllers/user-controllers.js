@@ -43,9 +43,9 @@ const userController = {
     res.redirect('/')
   },
   getUser: (req, res) => {
-    try {
-      const fanId = req.params.userId
-      ;(async () => {
+    const fanId = req.params.userId
+    ;(async () => {
+      try {
         const fan = await User.findOne({
           include: [City],
           where: { id: fanId },
@@ -54,15 +54,15 @@ const userController = {
         })
         fan.createdAt = dayjs(fan.createdAt).format('YYYY-MM-DD')
         res.render('users', { fan })
-      })()
-    } catch (err) {
-      console.log(err)
-    }
+      } catch (e) {
+        console.log(e)
+      }
+    })()
   },
   editUser: (req, res) => {
-    try {
-      const userId = req.user.id
-      ;(async () => {
+    const userId = req.user.id
+    ;(async () => {
+      try {
         const user = await User.findOne({
           include: [City],
           where: { id: userId },
@@ -74,26 +74,26 @@ const userController = {
         })
         user.createdAt = dayjs(user.createdAt).format('YYYY-MM-DD')
         res.render('edit', { user, cities })
-      })()
-    } catch (err) {
-      console.log(err)
-    }
+      } catch (e) {
+        console.log(e)
+      }
+    })()
   },
-  putUser: (req, res, next) => {
+  putUser: (req, res) => {
     const file = req.file
     const userId = req.user.id
     const { name, email, city } = req.body
     if (!name && email) throw new Error('Invalid input')
     if (userId !== Number(req.params.userId)) throw new Error('Permission deny')
-    try {
-      (async () => {
-        // handling image file if exist
+    ;(async () => {
+      try {
         const emailExist = await User.findOne({
           where: { id: { [Op.ne]: userId }, email },
         })
         if (emailExist) {
           throw new Error('Email has been used')
         }
+        // handling image file if exist
         const path = await localFileHandler(file)
         const user = await User.findByPk(userId)
         user.update({
@@ -102,18 +102,14 @@ const userController = {
           city,
           avatar: path || user.avatar,
         })
-
         req.flash('success_messages', '資料更新成功')
         res.redirect(`/users/${userId}`)
-        return
-      })()
-    } catch (err) {
-      req.flash('error_messages', 'email已被使用')
-      res.redirect(`/users/${userId}/edit`)
-      next(err)
-      console.log(err)
-      throw err
-    }
+      } catch (e) {
+        console.log(e)
+        req.flash('error_messages', e.message)
+        res.redirect(`/users/${userId}`)
+      }
+    })()
   },
 }
 

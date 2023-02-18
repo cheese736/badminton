@@ -121,16 +121,16 @@ const forumController = {
     })()
   },
   showDiscussion: (req, res) => {
-    try {
-      // get discussionId from URL parameters
-      const discussion_id = Number(req.params.discussionId)
-      // views +1 nomatter the client is a website member
-      Discussion.findOne({ where: { id: discussion_id } }).then((i) =>
-        i.increment('views')
-      )
-      // get userId if exist
-      const user_id = req.user ? req.user.id : null
-      ;(async () => {
+    // get discussionId from URL parameters
+    const discussion_id = Number(req.params.discussionId)
+    // views +1 nomatter the client is a website member
+    Discussion.findOne({ where: { id: discussion_id } }).then((i) =>
+      i.increment('views')
+    )
+    // get userId if exist
+    const user_id = req.user ? req.user.id : null
+    ;(async () => {
+      try {
         let likedThings =
           (await Like.findAll({
             attributes: ['comment_id'],
@@ -155,19 +155,19 @@ const forumController = {
           nest: true,
         })
         res.render('discussions', { comments, discussion, likedThings })
-      })()
-    } catch (err) {
-      console.log(err)
-    }
+      } catch (e) {
+        console.log(e)
+      }
+    })()
   },
 
   postComment: (req, res) => {
-    try {
-      const userId = req.user.id
-      const { comment } = req.body
-      const id = Number(req.params.discussionId)
-      if (comment.trim() === '') throw new Error('empty string not allowed')
-      ;(async () => {
+    const userId = req.user.id
+    const { comment } = req.body
+    const id = Number(req.params.discussionId)
+    if (comment.trim() === '') throw new Error('empty string not allowed')
+    ;(async () => {
+      try {
         await Comment.create({
           content: comment,
           user_id: userId,
@@ -176,36 +176,36 @@ const forumController = {
           updated_at: Date.now(),
         })
         res.redirect(`/forum/discussions/${id}`)
-      })()
-    } catch (err) {
-      console.log(err)
-    }
+      } catch (e) {
+        console.log(e)
+      }
+    })()
   },
 
   addLike: (req, res) => {
-    try {
-      const user_id = req.user.id
-      const discussion_id = Number(req.params.discussionId)
-      const comment_id = Number(req.params.commentId) || 0
-      ;(async () => {
+    const user_id = req.user.id
+    const discussion_id = Number(req.params.discussionId)
+    const comment_id = Number(req.params.commentId) || 0
+    ;(async () => {
+      try {
         await Like.create({
           user_id,
           discussion_id,
           comment_id,
         })
         res.redirect(`/forum/discussions/${discussion_id}`)
-      })()
-    } catch (err) {
-      console.log(err)
-    }
+      } catch (e) {
+        console.log(e)
+      }
+    })()
   },
 
   removeLike: (req, res) => {
-    try {
-      const user_id = req.user.id
-      const discussion_id = Number(req.params.discussionId)
-      const comment_id = Number(req.params.commentId) || 0
-      ;(async () => {
+    const user_id = req.user.id
+    const discussion_id = Number(req.params.discussionId)
+    const comment_id = Number(req.params.commentId) || 0
+    ;(async () => {
+      try {
         Like.destroy({
           where: {
             user_id,
@@ -213,11 +213,11 @@ const forumController = {
             comment_id,
           },
         })
-      })()
-      res.redirect(`/forum/discussions/${discussion_id}`)
-    } catch (err) {
-      console.log(err)
-    }
+        res.redirect(`/forum/discussions/${discussion_id}`)
+      } catch (e) {
+        console.log(e)
+      }
+    })()
   },
 
   // likeComment: (req, res) => {

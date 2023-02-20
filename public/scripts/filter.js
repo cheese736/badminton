@@ -1,39 +1,41 @@
 const checkboxes = document.querySelectorAll('.weekdayCheckbox')
-const daysInTable = document.querySelectorAll('tr .days')
-const citiesInTable = document.querySelectorAll('tr .cities')
 const partyNameKeyword = document.querySelector('#partyName')
-const city = document.querySelector('#city-select')
+const citySelector = document.querySelector('#city-select')
+const rows = document.querySelectorAll('table tbody tr')
 
-function dayFilter(event) {
-  const value = event.target.value
-  daysInTable.forEach((item) => {
-    if (item.attributes['value'].value === value) {
-      item.parentElement.classList.toggle('hide')
+function getCheckedDays() {
+  const arr = []
+  checkboxes.forEach((node) => {
+    if (node.checked) {
+      arr.push(node.value)
     }
   })
+  return arr
 }
 
-function cityFilter(event) {
-  const value = event.target.value
-  console.log(value)
-  if (value === '0') {
-    citiesInTable.forEach((item) => {
-      item.parentElement.classList.remove('hide')
-    })
-    return
-  }
-
-  citiesInTable.forEach((item) => {
-    if (item.attributes['value'].value !== value) {
-      item.parentElement.classList.add('hide')
+function filtering() {
+  const checkedDays = getCheckedDays()
+  const regex = new RegExp(partyNameKeyword.value, 'i')
+  rows.forEach((tr) => {
+    if (
+      checkedDays.includes(
+        tr.querySelector('.name').textContent.match(regex) &&
+          tr.querySelector('.days').attributes['value'].value
+      ) &&
+      (citySelector.value ===
+        tr.querySelector('.cities').attributes['value'].value ||
+        citySelector.value === '0')
+    ) {
+      tr.classList.remove('hide')
     } else {
-      item.parentElement.classList.remove('hide')
+      tr.classList.add('hide')
     }
   })
 }
 
 checkboxes.forEach((el) => {
-  el.addEventListener('change', dayFilter)
+  el.addEventListener('change', filtering)
 })
 
-city.addEventListener('change', cityFilter)
+citySelector.addEventListener('change', filtering)
+partyNameKeyword.addEventListener('input', filtering)

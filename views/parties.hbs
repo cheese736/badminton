@@ -3,7 +3,7 @@
 
     {{!-- sidebar --}}
     <div class="col-2 side-bar" id="sidebar">
-      <h5 class="p-1 text-center">Filering</h5>
+      <h5 class="p-1 text-center">Filtering</h5>
       <hr>
       <form action="">
         <h6 class="mb-2">地區</h6>
@@ -68,7 +68,7 @@
           <tbody>
             {{#each parties}}
             <tr>
-              <td>{{this.name}}</td>
+              <td class="name">{{this.name}}</td>
               <td>{{this.host_name}}</td>
               <td>{{this.contact}}</td>
               <td class="days" value={{this.day_of_the_week}}>{{this.day}}</td>

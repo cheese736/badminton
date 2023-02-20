@@ -10,7 +10,7 @@ const localFileHandler = (file) => {
     const fileName = `upload/${file.originalname}`
     return fs.promises
       .readFile(file.path)
-      .then((data) => sharp(data).resize(100).toBuffer())
+      .then((data) => sharp(data).resize(100).toBuffer()) //resize the input image to 100 * 100
       .then((data) => fs.promises.writeFile(fileName, data))
       .then(() => resolve(`/${fileName}`))
       .catch((err) => reject(err))
@@ -28,10 +28,6 @@ const imgurFileHandler = (file) => {
       .catch((err) => reject(err))
   })
 }
-
-// const facebookImgHandler = (picture) => {
-  
-// }
 
 module.exports = {
   localFileHandler,

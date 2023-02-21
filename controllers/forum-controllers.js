@@ -15,42 +15,31 @@ const forumController = {
     const page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || DEFAULT_LIMIT
     const category = req.query.category || false
+
     ;(async () => {
       try {
+        // 檢查請求中是否含有類別過濾
         const { id: category_id } = await Category.findOne({
           attribute: ['id'],
           where: category ? { name: category } : {},
           raw: true,
         })
-        let discussions = await Discussion.findAndCountAll({
-          include: [Category, User],
+        //  分頁參數
+        const pagParams = {
+          limit: limit, //每頁顯示筆數
+          offset: getOffset(limit, page), //起始筆數
+          where: category && category_id ? { category_id } : {}, //類別過濾
+          raw: true,
+        }
+        // 取得當前頁面
+        const currentPageDiscussions = await Discussion.findAndCountAll({
+          include: { model: User },
           nest: true,
           raw: true,
-          limit: limit,
-          offset: getOffset(limit, page),
-          where: category && category_id ? { category_id } : {},
+          ...pagParams,
         })
-        // const comments = await Comment.findAll({
-        //   include: { model: User },
-        //   attributes: [
-        //     'discussion_id',
-        //     [
-        //       sequelize.fn('MAX', sequelize.col('comment.id')),
-        //       'latestCommentId',
-        //     ],
-        //     [sequelize.col('comment.id'), 'latestCommentId'],
-        //     sequelize.col('comment.content'),
-        //     ['user_id', 'userId'],
-        //     ['created_at', 'createdAt'],
-        //     [sequelize.col('user.name'), 'userName'],
-        //   ],
-        //   group: ['discussion_id'],
-        //   order: [['id', 'DESC']],
-        //   raw: true,
-        //   nest: true,
-        //   limit: 10,
-        // })
 
+        // 取得每篇Discussion的最後留言資訊
         const comments = await Comment.findAll({
           include: { model: User },
           attributes: [
@@ -63,6 +52,7 @@ const forumController = {
           where: {
             id: {
               [op.in]: sequelize.literal(
+                // 以discussionId為組，取id數最大的作為最新留言
                 '(SELECT MAX(id) FROM comments GROUP BY discussion_id)'
               ),
             },
@@ -71,6 +61,7 @@ const forumController = {
           nest: true,
         })
 
+        // 取得每篇Discussion的comment數
         const commentCounts = await Comment.findAll({
           include: { model: Discussion },
           attributes: [
@@ -85,32 +76,48 @@ const forumController = {
           nest: true,
         })
 
-        // 將取得的discussion加上最後評論的相關資訊
-        discussions.rows = discussions.rows.map((item) => {
-          const latestComment = comments.find(
-            (comment) => comment.discussion_id === item.id
-          )
-          const count = commentCounts.find(
-            (result) => result.discussion_id === item.id
-          )
-          if (latestComment) {
-            item.latestComment = latestComment.content
-            item.commentedTime = latestComment.createdAt
-            item.latestCommenter = latestComment.userName
-            item.commenterId = latestComment.userId
-            item.numberOfComments = count.numberOfComments
+        // 將取得的discussion加上最後評論的相關資訊(當前頁面)
+        currentPageDiscussions.rows = currentPageDiscussions.rows.map(
+          (item) => {
+            const latestComment = comments.find(
+              (comment) => comment.discussion_id === item.id
+            )
+            const count = commentCounts.find(
+              (result) => result.discussion_id === item.id
+            )
+            if (latestComment) {
+              item.latestComment = latestComment.content
+              item.commentedTime = latestComment.createdAt
+              item.latestCommenter = latestComment.userName
+              item.commenterId = latestComment.userId
+              item.numberOfComments = count.numberOfComments
+            }
+            return item
           }
-          return item
+        )
+
+        const pagination = getPagination(
+          limit,
+          page,
+          currentPageDiscussions.count
+        )
+
+        // 處理熱門討論
+        const allDiscussions = await Discussion.findAll({
+          include: [Category, User],
+          nest: true,
+          raw: true,
         })
-        const topViewedDis = [...discussions.rows]
+
+        const topViewedDis = [...allDiscussions]
           .sort(viewsCompareFn)
           .slice(0, 5)
-        const topCommentedDis = [...discussions.rows]
+        const topCommentedDis = [...allDiscussions]
           .sort(commentsCompareFn)
           .slice(0, 5)
-        const pagination = getPagination(limit, page, discussions.count)
+
         res.render('forum', {
-          discussions: discussions.rows,
+          discussions: currentPageDiscussions.rows,
           pagination,
           topViewedDis,
           topCommentedDis,
@@ -219,22 +226,6 @@ const forumController = {
       }
     })()
   },
-
-  // likeComment: (req, res) => {
-  //   try {
-  //     const userId = req.user.id
-  //     const id = Number(req.params.commentId)
-  //     ;(async () => {
-  //       await Like.create({
-  //         user_id: userId,
-  //         comment_id: id,
-  //       })
-  //       res.redirect(`/forum/discussions/${id}`)
-  //     })()
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // },
 }
 
 module.exports = forumController

@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'Discussion',
       tableName: 'Discussions',
+      underscored: true,
     }
   )
   return Discussion

@@ -10,6 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       user_id: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       discussion_id: {
@@ -28,7 +29,7 @@ module.exports = {
       },
     })
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface, _Sequelize) {
     await queryInterface.dropTable('Likes')
   },
 }

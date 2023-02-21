@@ -17,13 +17,20 @@ module.exports = {
         day_of_the_week: Math.floor(Math.random() * 7),
         court_location: faker.address.streetAddress(),
         city: citiesId[Math.floor(Math.random() * citiesId.length)],
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        created_at: new Date(),
+        updated_at: new Date(),
       }))
     )
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Parties', {})
+    await queryInterface.bulkDelete(
+      'Parties',
+      {},
+      {
+        truncate: true,
+        restartIdentity: true,
+      }
+    )
   },
 }

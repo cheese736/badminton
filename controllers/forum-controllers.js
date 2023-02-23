@@ -24,18 +24,21 @@ const forumController = {
           where: category ? { name: category } : {},
           raw: true,
         })
+
+        const categories = await Category.findAll({ raw: true })
+
         //  分頁參數
         const pagParams = {
           limit: limit, //每頁顯示筆數
           offset: getOffset(limit, page), //起始筆數
           where: category && category_id ? { category_id } : {}, //類別過濾
           raw: true,
+          order: [['id', 'DESC']],
         }
         // 取得當前頁面
         const currentPageDiscussions = await Discussion.findAndCountAll({
           include: { model: User },
           nest: true,
-          raw: true,
           ...pagParams,
         })
 
@@ -52,7 +55,7 @@ const forumController = {
           where: {
             id: {
               [op.in]: sequelize.literal(
-                // 以discussionId為組，取id數最大的作為最新留言
+                // 以discussionId為組，取`comment`.`id`數最大的作為最新留言
                 '(SELECT MAX(id) FROM comments GROUP BY discussion_id)'
               ),
             },
@@ -91,6 +94,8 @@ const forumController = {
               item.latestCommenter = latestComment.userName
               item.commenterId = latestComment.userId
               item.numberOfComments = count.numberOfComments
+            } else {
+              item.numberOfComments = 0
             }
             return item
           }
@@ -112,15 +117,24 @@ const forumController = {
         const topViewedDis = [...allDiscussions]
           .sort(viewsCompareFn)
           .slice(0, 5)
+
         const topCommentedDis = [...allDiscussions]
           .sort(commentsCompareFn)
           .slice(0, 5)
+
+        topCommentedDis.forEach((discussion) => {
+          const count = commentCounts.find(
+            (result) => result.discussion_id === discussion.id
+          )
+          discussion.numberOfComments = count.numberOfComments || 0
+        })
 
         res.render('forum', {
           discussions: currentPageDiscussions.rows,
           pagination,
           topViewedDis,
           topCommentedDis,
+          categories,
         })
       } catch (err) {
         console.log(err)
@@ -167,7 +181,25 @@ const forumController = {
       }
     })()
   },
-
+  postDiscussion: (req, res) => {
+    const userId = req.user.id
+    const { header, content, category } = req.body
+    ;(async () => {
+      try {
+        await Discussion.create({
+          header,
+          content,
+          user_id: userId,
+          category_id: category,
+          created_at: Date.now(),
+          updated_at: Date.now(),
+        })
+        res.redirect('/discussions')
+      } catch (e) {
+        console.log(e)
+      }
+    })()
+  },
   postComment: (req, res) => {
     const userId = req.user.id
     const { comment } = req.body

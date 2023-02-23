@@ -170,3 +170,14 @@ h5,
 .shadow-sm {
   background-color: #566e7b;
 }
+
+.btn-primary {
+  border: none;
+  background-color: #566e7b;
+  color: #f0e9d3;
+}
+
+.btn-primary:hover {
+  background-color: #566e7b;
+  color: #cac4b2;
+}

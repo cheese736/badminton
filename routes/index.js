@@ -67,37 +67,41 @@ router.get('/logout', userController.logout)
 
 router.get('/parties', partyController.showParty)
 
-router.get('/forum/discussions/:discussionId', forumController.showDiscussion)
+// ./forum
+router.get('/discussions/:discussionId', forumController.showDiscussion)
+
+router.post('/discussions', authenticated, forumController.postDiscussion)
 router.post(
-  '/forum/discussions/:discussionId',
+  '/discussions/:discussionId',
   authenticated,
   forumController.postComment
 )
-router.get('/forum', forumController.showDiscussions)
 
 router.post(
-  '/like/discussion/:discussionId/comment/:commentId',
+  '/discussions/:discussionId/comment/:commentId',
   authenticated,
   forumController.addLike
 )
 
 router.delete(
-  '/like/discussion/:discussionId/comment/:commentId',
+  '/discussions/:discussionId/comment/:commentId/removelike',
   authenticated,
   forumController.removeLike
 )
 
 router.post(
-  '/like/discussion/:discussionId',
+  '/discussions/:discussionId/like',
   authenticated,
   forumController.addLike
 )
 
 router.delete(
-  '/like/discussion/:discussionId',
+  '/discussions/:discussionId/removelike',
   authenticated,
   forumController.removeLike
 )
+
+router.get('/discussions', forumController.showDiscussions)
 
 router.get('/', (req, res) => {
   res.render('index')

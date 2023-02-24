@@ -3,12 +3,12 @@
 const bcrypt = require('bcryptjs')
 const randAvatar = require('@ngneat/falso').randAvatar
 const { City } = require('../models')
+const { pickRandomly, getRows } = require('../helpers/seeder-helpers')
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    let citiesId = await City.findAll({ attributes: ['id'], raw: true })
-    citiesId = citiesId.map((item) => item.id)
+    const citiesId = await getRows(City, 'id')
     await queryInterface.bulkInsert(
       'Users',
       Array.from({ length: 20 }, (_item, i) => {
@@ -18,7 +18,7 @@ module.exports = {
           email: `user${i}@example.com`,
           password: hash,
           avatar: randAvatar() + '?img=' + Math.ceil(Math.random() * 70),
-          city: citiesId[Math.floor(Math.random() * citiesId.length)],
+          city: pickRandomly(citiesId),
           created_at: new Date(),
           updated_at: new Date(),
         }

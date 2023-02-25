@@ -2,42 +2,42 @@
   <div class="row min-vh-100 ">
 
     {{!-- sidebar --}}
-    <div class="col-2 side-bar" id="sidebar">
-      <h5 class="p-1 text-center">Filtering</h5>
-      <hr>
-      <form action="">
-        <h6 class="mb-2">地區</h6>
+    <div class="col-2 side-bar py-4" id="sidebar">
+      <div class="mb-3">
+        <h6>地區</h6>
         <select class="form-select border-bottom" id="city-select" aria-label="Default select example">
           <option value="0" selected>全部</option>
           {{#each cities}}
           <option value="{{this.id}}">{{this.name}}</option>
           {{/each}}
         </select>
-        <hr>
-      </form>
-      <h6 class="mb-2">星期</h6>
-      <ul id="checkbox-list" class="list-unstyled">
-        <div class="row">
-          <div class="col">
-            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="0" checked>Mon.</li>
-            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="1" checked>Tues.</li>
-            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="2" checked>Wed.</li>
-            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="3" checked>Thur.</li>
-
-          </div>
-          <div class="col">
-            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="4" checked>Fri.</li>
-            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="5" checked>Sat.</li>
-            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="6" checked>Sun.</li>
-          </div>
-        </div>
-        <hr>
-      </ul>
-      <h6 class="mb-2">團體名稱</h6>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="輸入團體名稱..." aria-label="Partyname" id="partyName">
-        <hr>
       </div>
+      <div class="mb-3">
+        <h6 class="mb-2">星期</h6>
+        <ul id="checkbox-list" class="list-unstyled">
+          <div class="row">
+            <div class="col">
+              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="0" checked>Mon.</li>
+              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="1" checked>Tues.</li>
+              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="2" checked>Wed.</li>
+              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="3" checked>Thur.</li>
+
+            </div>
+            <div class="col">
+              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="4" checked>Fri.</li>
+              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="5" checked>Sat.</li>
+              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="6" checked>Sun.</li>
+            </div>
+          </div>
+        </ul>
+      </div>
+      <div class="mb-3">
+        <h6 class="mb-2">團體名稱</h6>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="輸入團體名稱..." aria-label="Partyname" id="partyName">
+        </div>
+      </div>
+      <hr>
       <div class="d-flex justify-content-center">
         <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#init-activity">Initiate an
           activity</a>
@@ -74,7 +74,7 @@
             {{#each parties}}
             <tr>
               <td class="name">{{this.name}}</td>
-              <td>{{this.host_name}}</td>
+              <td><a href="/users/{{this.User.id}}">{{this.User.name}}</a> </td>
               <td>{{this.contact}}</td>
               <td class="days" value={{this.day_of_the_week}}>{{this.day}}</td>
               <td class="cities" value={{this.City.id}}>{{this.City.name}}</td>
@@ -95,28 +95,52 @@
           <h1 class="modal-title fs-5">發起活動</h1>
         </div>
         <div class="modal-body">
-          <form action="/discussions" method="POST">
+          <form action="/parties" method="POST">
+
             <div class="mb-3">
-              <label for="title" class="form-label">Title</label>
-              <input type="text" class="form-control" id="title" aria-describedby="emailHelp" name="header">
+              <label for="title" class="form-label">活動名稱</label>
+              <input required type="text" class="form-control" id="title" aria-describedby="emailHelp" name="name">
             </div>
+
             <div class="mb-3">
-              <label for="content" class="form-label">Content</label>
-              <textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
+              <label for="contact" class="form-label">聯絡方式</label>
+              <input required type="tel" class="form-control" aria-describedby="emailHelp" name="contact" id="contact"
+                placeholder="電話格式: xxxx-xxxxxx" pattern="[0-9]{4}-[0-9]{6}">
             </div>
-            {{!-- <select class="form-control" name="city">
-              <option value="" selected>請選擇地區</option>
-              {{#each cities}}
-              <option value={{this.id}}>{{this.name}}</option>
-              {{/each}}
-            </select> --}}
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button type="submit" class="btn btn-primary ">Submit</button>
+
+            <div class="mb-3">
+              <label lass="form-label" for="day_of_the_week">星期</label>
+              <select required class="form-control" name="day_of_the_week" id="day_of_the_week">
+                <option value="" selected>周一至周日擇一</option>
+                {{#each days}}
+                <option value={{this.number}}>{{this.text}}</option>
+                {{/each}}
+              </select>
             </div>
-          </form>
+
+            <div class="mb-3">
+              <label lass="form-label" for="city">地區</label>
+              <select required class="form-control" name="city" id="city">
+                <option value="" selected>請選擇地區</option>
+                {{#each cities}}
+                <option value={{this.id}}>{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="court" class="form-label">球場資訊</label>
+              <input required type="text" class="form-control" aria-describedby="emailHelp" name="court" id="court">
+            </div>
+
         </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="submit" class="btn btn-primary ">Submit</button>
+        </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 </div>
 <script type="text/javascript" src="/scripts/filter.js"></script>

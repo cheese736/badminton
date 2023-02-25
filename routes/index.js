@@ -64,8 +64,9 @@ router.get('/users/:userId/edit', authenticated, userController.editUser)
 router.get('/users/:userId', authenticated, userController.getUser)
 
 router.get('/logout', userController.logout)
-
+// ./parties
 router.get('/parties', partyController.showParty)
+router.post('/parties', authenticated, partyController.postParty)
 
 // ./forum
 router.get('/discussions/:discussionId', forumController.showDiscussion)

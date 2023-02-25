@@ -194,6 +194,7 @@ const forumController = {
           created_at: Date.now(),
           updated_at: Date.now(),
         })
+        req.flash('success_messages', '張貼成功')
         res.redirect('/discussions')
       } catch (e) {
         console.log(e)

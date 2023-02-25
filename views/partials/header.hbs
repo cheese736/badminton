@@ -37,7 +37,7 @@
           <img src={{#if user.avatar}}{{user.avatar}}{{else}}'/images/guest.png'{{/if}} alt="user_avatar"
             id="avatar-in-nav">
         </a>
-        <ul class="mb-0 p-0" style="list-style-type: none;" id="end-of-nav">
+        <ul class="mb-0 p-0 ms-3" style="list-style-type: none;" id="end-of-nav">
           <li class="m-1 ">
             <a href={{#if user}}'/logout'{{else}}'/signin'{{/if}}>
               {{#if user}}Logout{{else}}Login{{/if}}

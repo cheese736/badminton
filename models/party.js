@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Party.belongsTo(models.City, { foreignKey: 'city' })
+      Party.belongsTo(models.User, { foreignKey: 'host_name' })
     }
   }
   Party.init(

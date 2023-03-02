@@ -15,10 +15,6 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "sql12602120",
-    "password": "dn5Hae7PsA",
-    "database": "sql12602120",
-    "host": "sql12.freemysqlhosting.net",
-    "dialect": "mysql"
+    "use_env_variable": "CLEARDB_DATABASE_URL"
   }
 }

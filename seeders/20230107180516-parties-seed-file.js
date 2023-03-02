@@ -9,7 +9,6 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const citiesId = await getRows(City, 'id')
     const usersId = await getRows(User, 'id')
-    console.log(usersId)
     await queryInterface.bulkInsert(
       'Parties',
       Array.from({ length: 30 }, () => ({

@@ -1,6 +1,22 @@
 * {
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 900px) {
+  .expand-smaller-900 {
+    width: 100vw !important;
+  }
+  .hide-for-smaller-900 {
+    display: none;
+  }
+  #find-a-badminton-activity {
+    display: block !important;
+  }
+  #parties {
+    font-size: x-small;
+  }
+}
+
 html,
 body {
   width: 100vw;
@@ -16,7 +32,7 @@ a {
 }
 .navbar a {
   font-weight: bold;
-  color: #f0e9d3 !important;
+  color: #f0e9d3;
 }
 
 h5,
@@ -25,23 +41,23 @@ h5,
 .side-bar,
 .side-bar .nav-link {
   font-weight: bold;
-  color: #475b66 !important;
+  color: #475b66;
 }
 
 .side-bar .nav-link:hover {
   font-weight: bold;
-  color: #566e7b !important;
+  color: #566e7b;
 }
 .forum,
 .party-container,
 .forum-card,
 .side-bar {
-  border-right: medium solid #475b66 !important;
+  border-right: medium solid #475b66;
   max-width: 100%;
 }
 
 .navbar a:hover {
-  color: #cac4b2 !important;
+  color: #cac4b2;
 }
 
 .weekdayCheckbox,
@@ -73,7 +89,7 @@ h5,
   font-size: 0.8em;
   width: auto;
   height: large;
-  color: #475b66 !important;
+  color: #475b66;
 }
 
 #parties th {
@@ -93,8 +109,8 @@ h5,
 }
 
 .page-item.active .page-link {
-  background-color: #cac4b2 !important;
-  border-color: #cac4b2 !important;
+  background-color: #cac4b2;
+  border-color: #cac4b2;
 }
 
 #end-of-nav {
@@ -113,7 +129,7 @@ h5,
 }
 
 .icon {
-  font-size: 10px !important;
+  font-size: 10px;
 }
 
 .fa-heart {

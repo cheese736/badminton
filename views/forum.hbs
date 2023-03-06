@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row vh-100">
     {{!-- left-side bar --}}
-    <div class="col-2 p-1 side-bar">
+    <div class="col-2 p-1 side-bar hide-for-smaller-900">
       <ul class="nav nav-pills flex-column mb-auto">
         <li>
           <a href="/discussions" class="nav-link link-dark">
@@ -40,11 +40,11 @@
       </div>
     </div>
     {{!-- main forum --}}
-    <div class="col-7 forum" data-bs-spy="scroll">
+    <div class="col-7 forum expand-smaller-900">
       <div class="d-flex flex-column align-items-center">
         {{#each discussions}}
         <div class="card-body p-1 forum-card d-flex my-2">
-          <div class="media forum-item col-1">
+          <div class="media forum-item col-1 hide-for-smaller-900">
             <a href="/users/{{this.User.id}}" data-toggle="collapse" data-target=".forum-content">
               <img src={{this.User.avatar}} class="mr-3 rounded-circle" width="50" alt="User">
             </a>
@@ -93,7 +93,7 @@
       </div>
     </div>
     {{!-- right-side bar --}}
-    <div class="col-3 px-5">
+    <div class="col-3 px-5 hide-for-smaller-900">
       <h5 class="p-2">Top 5 viewed topics</h5>
       <div class="shadow-sm rounded top-topics">
         {{!-- <ol class="list-group list-group-numbered top-topics"> --}}

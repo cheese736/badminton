@@ -1,90 +1,88 @@
-<div class="container-fluid ">
-  <div class="row min-vh-100 ">
+<div class="container-fluid d-flex" id="find-a-badminton-activity">
 
-    {{!-- sidebar --}}
-    <div class="col-2 side-bar py-4" id="sidebar">
-      <div class="mb-3">
-        <h6>地區</h6>
-        <select class="form-select border-bottom" id="city-select" aria-label="Default select example">
-          <option value="0" selected>全部</option>
-          {{#each cities}}
-          <option value="{{this.id}}">{{this.name}}</option>
-          {{/each}}
-        </select>
-      </div>
-      <div class="mb-3">
-        <h6 class="mb-2">星期</h6>
-        <ul id="checkbox-list" class="list-unstyled">
-          <div class="row">
-            <div class="col">
-              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="0" checked>Mon.</li>
-              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="1" checked>Tues.</li>
-              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="2" checked>Wed.</li>
-              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="3" checked>Thur.</li>
+  {{!-- sidebar --}}
+  <div class="side-bar p-3 expand-smaller-900" id="side-bar-filter" style="width:15%">
+    <div class="mb-3 side-bar-filter-option">
+      <h6>地區</h6>
+      <select class="form-select border-bottom" id="city-select" aria-label="Default select example">
+        <option value="0" selected>全部</option>
+        {{#each cities}}
+        <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="mb-3 side-bar-filter-option">
+      <h6 class="mb-2">星期</h6>
+      <ul id="checkbox-list" class="list-unstyled">
+        <div class="row">
+          <div class="col">
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="0" checked>Mon.</li>
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="1" checked>Tues.</li>
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="2" checked>Wed.</li>
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="3" checked>Thur.</li>
 
-            </div>
-            <div class="col">
-              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="4" checked>Fri.</li>
-              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="5" checked>Sat.</li>
-              <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="6" checked>Sun.</li>
-            </div>
           </div>
-        </ul>
-      </div>
-      <div class="mb-3">
-        <h6 class="mb-2">團體名稱</h6>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="輸入團體名稱..." aria-label="Partyname" id="partyName">
+          <div class="col">
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="4" checked>Fri.</li>
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="5" checked>Sat.</li>
+            <li><input class='weekdayCheckbox form-check-input' type="checkbox" value="6" checked>Sun.</li>
+          </div>
         </div>
-      </div>
-      <hr>
-      <div class="d-flex justify-content-center">
-        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#init-activity">Initiate an
-          activity</a>
+      </ul>
+    </div>
+    <div class="mb-3 side-bar-filter-option">
+      <h6 class="mb-2">團體名稱</h6>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="輸入團體名稱..." aria-label="Partyname" id="partyName">
       </div>
     </div>
+    <hr>
+    <div class="d-flex justify-content-center">
+      <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#init-activity">Initiate an
+        activity</a>
+    </div>
+  </div>
 
-    {{!-- parties --}}
-    <div class="col-9 party-container">
-      <div class="container justify-content-center">
-        <table class="table table-striped " id="parties">
-          <thead>
-            <tr>
-              <th scope="col">
-                <nobr>團體(活動)名稱</nobr>
-              </th>
-              <th scope="col">
-                <nobr>主揪</nobr>
-              </th>
-              <th scope="col">
-                <nobr>聯絡方式</nobr>
-              </th>
-              <th scope="col">
-                <nobr>星期幾</nobr>
-              </th>
-              <th scope="col">
-                <nobr>城市</nobr>
-              </th>
-              <th scope="col">
-                <nobr>球場資訊</nobr>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each parties}}
-            <tr>
-              <td class="name">{{this.name}}</td>
-              <td><a href="/users/{{this.User.id}}">{{this.User.name}}</a> </td>
-              <td>{{this.contact}}</td>
-              <td class="days" value={{this.day_of_the_week}}>{{this.day}}</td>
-              <td class="cities" value={{this.City.id}}>{{this.City.name}}</td>
-              <td>{{this.court_location}}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+  {{!-- parties --}}
+  <div class="party-container expand-smaller-900" style="width:85%">
+    <div class="container justify-content-center">
+      <table class="table table-striped " id="parties">
+        <thead>
+          <tr>
+            <th scope="col">
+              <nobr>團體(活動)名稱</nobr>
+            </th>
+            <th scope="col">
+              <nobr>主揪</nobr>
+            </th>
+            <th scope="col">
+              <nobr>聯絡方式</nobr>
+            </th>
+            <th scope="col">
+              <nobr>星期幾</nobr>
+            </th>
+            <th scope="col">
+              <nobr>城市</nobr>
+            </th>
+            <th scope="col">
+              <nobr>球場資訊</nobr>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each parties}}
+          <tr>
+            <td class="name">{{this.name}}</td>
+            <td><a href="/users/{{this.User.id}}">{{this.User.name}}</a> </td>
+            <td>{{this.contact}}</td>
+            <td class="days" value={{this.day_of_the_week}}>{{this.day}}</td>
+            <td class="cities" value={{this.City.id}}>{{this.City.name}}</td>
+            <td>{{this.court_location}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
 
-      </div>
     </div>
   </div>
   {{!-- modal --}}

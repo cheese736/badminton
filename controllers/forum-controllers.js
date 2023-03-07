@@ -118,7 +118,17 @@ const forumController = {
           .sort(viewsCompareFn)
           .slice(0, 5)
 
-        const topCommentedDis = [...allDiscussions]
+        const discussionsWithCommentCounts = allDiscussions.map(
+          (discussion) => {
+            const count = commentCounts.find(
+              (result) => result.discussion_id === discussion.id
+            )
+            discussion.numberOfComments = count ? count.numberOfComments : 0
+            return discussion
+          }
+        )
+
+        const topCommentedDis = [...discussionsWithCommentCounts]
           .sort(commentsCompareFn)
           .slice(0, 5)
 

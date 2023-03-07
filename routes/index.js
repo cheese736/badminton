@@ -19,7 +19,7 @@ router.get(
 )
 
 router.get(
-  '/google/callback',
+  '/auth/google/callback',
   passport.authenticate('google', {
     successRedirect: '/',
     failureRedirect: '/users/login',
@@ -36,7 +36,7 @@ router.get(
 )
 
 router.get(
-  '/facebook/callback',
+  '/auth/facebook/callback',
   passport.authenticate('facebook', {
     successRedirect: '/',
     failureRedirect: '/users/login',

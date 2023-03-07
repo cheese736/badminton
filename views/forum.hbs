@@ -1,120 +1,102 @@
-<div class="container-fluid">
-  <div class="row vh-100">
-    {{!-- left-side bar --}}
-    <div class="col-2 p-1 side-bar hide-for-smaller-900">
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li>
-          <a href="/discussions" class="nav-link link-dark">
-            全部主題
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="/discussions?category=equipment" class="nav-link" aria-current="page">
-            裝備討論<span style="font-size: 10px;">(球拍、球鞋、球線、握把)</span>
-          </a>
-        </li>
-        <li>
-          <a href="/discussions?category=injury" class="nav-link link-dark">
-            運動傷害防護
-          </a>
-        </li>
-        <li>
-          <a href="/discussions?category=technique" class="nav-link link-dark">
-            技術討論
-          </a>
-        </li>
-        <li>
-          <a href="/discussions?category=chat" class="nav-link link-dark">
-            羽球雜談
-          </a>
-        </li>
-        <li>
-          <a href="/discussions?category=trade" class="nav-link link-dark">
-            二手用品交易
-          </a>
-        </li>
-      </ul>
-      <hr>
-      <div class="d-flex justify-content-center">
-        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-a-post">Make a post</a>
-      </div>
+<div class="container-fluid d-flex forum">
+  {{!-- left-side bar --}}
+  <div class="p-1 side-bar expand-smaller-1024">
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li>
+        <a href="/discussions" class="nav-link link-dark">
+          全部主題
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/discussions?category=equipment" class="nav-link" aria-current="page">
+          裝備討論<span style="font-size: 10px;">(球拍、球鞋、球線、握把)</span>
+        </a>
+      </li>
+      <li>
+        <a href="/discussions?category=injury" class="nav-link link-dark">
+          運動傷害防護
+        </a>
+      </li>
+      <li>
+        <a href="/discussions?category=technique" class="nav-link link-dark">
+          技術討論
+        </a>
+      </li>
+      <li>
+        <a href="/discussions?category=chat" class="nav-link link-dark">
+          羽球雜談
+        </a>
+      </li>
+      <li>
+        <a href="/discussions?category=trade" class="nav-link link-dark">
+          二手用品交易
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="d-flex justify-content-center">
+      <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#make-a-post">Make a post</a>
     </div>
-    {{!-- main forum --}}
-    <div class="col-7 forum expand-smaller-900">
-      <div class="d-flex flex-column align-items-center">
-        {{#each discussions}}
-        <div class="card-body p-1 forum-card d-flex my-2">
-          <div class="media forum-item col-1 hide-for-smaller-900">
-            <a href="/users/{{this.User.id}}" data-toggle="collapse" data-target=".forum-content">
-              <img src={{this.User.avatar}} class="mr-3 rounded-circle" width="50" alt="User">
-            </a>
-          </div>
-          <div class="media-body col-9 d-flex flex-column">
-            <h6>
-              <a href="/discussions/{{this.id}}" data-toggle="collapse" data-target=".forum-content"
-                class="text-body">{{this.header}}
-              </a>
-            </h6>
-            <p class="text-muted">
-              <a href="/users/{{this.commenterId}}">
-                {{this.latestCommenter}}
-              </a> replied
-              <span class="text-secondary font-weight-bold">
-                {{#relativeTimeFromNow this.commentedTime}}{{/relativeTimeFromNow}}
-              </span>
-            </p>
-          </div>
-          <div class="text-muted small text-center align-self-center col-2">
-            <span class="d-none d-sm-inline-block">
-              <i class="far fa-eye"></i>
-              {{this.views}}
-            </span>
-            <span>
-              <i class="far fa-comment ml-2"></i>
-              {{this.numberOfComments}}
-            </span>
-          </div>
+  </div>
+  {{!-- main forum --}}
+  <div class="forum-content expand-smaller-1024 p-3">
+    <div class="d-flex flex-column align-items-center">
+      {{#each discussions}}
+      <div class="card-body p-1 forum-card d-flex my-2">
+        <div class="media forum-item col-1 hide-for-smaller-900">
+          <a href="/users/{{this.User.id}}" data-toggle="collapse" data-target=".forum-content">
+            <img src={{this.User.avatar}} class="mr-3 rounded-circle" width="50" alt="User">
+          </a>
         </div>
-        {{/each}}
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item {{#ifCond pagination.currentPage 1}}disabled{{/ifCond}}">
-              <a class="page-link " href="/discussions?page={{pagination.prev}}" aria-label="Previous">&laquo;</a>
-            </li>
-            {{#each pagination.pages}}
-            <li class="page-item {{#ifCond this ../pagination.currentPage}}active{{/ifCond}}"><a class="page-link"
-                href="/discussions?page={{this}}">{{this}}</a></li>
-            {{/each}}
-            <li class="page-item {{#ifCond pagination.currentPage pagination.totalPage}}disabled{{/ifCond}}">
-              <a class="page-link " href="/discussions?page={{pagination.next}}">&raquo;</a>
-            </li>
-          </ul>
-        </nav>
+        <div class="media-body col-9 d-flex flex-column">
+          <h6>
+            <a href="/discussions/{{this.id}}" data-toggle="collapse" data-target=".forum-content"
+              class="text-body">{{this.header}}
+            </a>
+          </h6>
+          <p class="text-muted">
+            <a href="/users/{{this.commenterId}}">
+              {{this.latestCommenter}}
+            </a> replied
+            <span class="text-secondary font-weight-bold">
+              {{#relativeTimeFromNow this.commentedTime}}{{/relativeTimeFromNow}}
+            </span>
+          </p>
+        </div>
+        <div class="text-muted small text-center align-self-center col-2">
+          <span class="d-none d-sm-inline-block">
+            <i class="far fa-eye"></i>
+            {{this.views}}
+          </span>
+          <span>
+            <i class="far fa-comment ml-2"></i>
+            {{this.numberOfComments}}
+          </span>
+        </div>
       </div>
-    </div>
-    {{!-- right-side bar --}}
-    <div class="col-3 px-5 hide-for-smaller-900">
-      <h5 class="p-2">Top 5 viewed topics</h5>
-      <div class="shadow-sm rounded top-topics">
-        {{!-- <ol class="list-group list-group-numbered top-topics"> --}}
-          {{#each topViewedDis}}
-          <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">{{this.Category.name}}</div>
-              <a href="/discussions/{{this.id}}">
-                {{this.header}}
-              </a>
-            </div>
-            <span class="badge bg-primary rounded-pill">{{this.views}}</span>
+      {{/each}}
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item {{#ifCond pagination.currentPage 1}}disabled{{/ifCond}}">
+            <a class="page-link " href="/discussions?page={{pagination.prev}}" aria-label="Previous">&laquo;</a>
           </li>
+          {{#each pagination.pages}}
+          <li class="page-item {{#ifCond this ../pagination.currentPage}}active{{/ifCond}}"><a class="page-link"
+              href="/discussions?page={{this}}">{{this}}</a></li>
           {{/each}}
-        </ol>
-
-      </div>
-      <hr>
-      <h5 class="p-2">Top 5 discussed topics</h5>
-      <ol class="shadow-sm list-group list-group-numbered top-topics">
-        {{#each topCommentedDis}}
+          <li class="page-item {{#ifCond pagination.currentPage pagination.totalPage}}disabled{{/ifCond}}">
+            <a class="page-link " href="/discussions?page={{pagination.next}}">&raquo;</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  {{!-- right-side bar --}}
+  <div class="px-3">
+    <h5 class="p-2">Top 5 viewed topics</h5>
+    <div class="shadow-sm rounded top-topics">
+      {{!-- <ol class="list-group list-group-numbered top-topics"> --}}
+        {{#each topViewedDis}}
         <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="ms-2 me-auto">
             <div class="fw-bold">{{this.Category.name}}</div>
@@ -122,39 +104,55 @@
               {{this.header}}
             </a>
           </div>
-          <span class="badge bg-primary rounded-pill">{{this.numberOfComments}}</span>
+          <span class="badge bg-primary rounded-pill">{{this.views}}</span>
         </li>
         {{/each}}
       </ol>
+
     </div>
-    {{!-- modal --}}
-    <div class="modal fade" id="make-a-post" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content p-3">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5">發表主題</h1>
-          </div>
-          <div class="modal-body">
-            <form action="/discussions" method="POST">
-              <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" aria-describedby="emailHelp" name="header">
-              </div>
-              <div class="mb-3">
-                <label for="content" class="form-label">Content</label>
-                <textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
-              </div>
-              <select class="form-control" name="category" id="">
-                <option value="" selected>請選擇分類</option>
-                {{#each categories}}
-                <option value={{this.id}}>{{this.name}}</option>
-                {{/each}}
-              </select>
-              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="submit" class="btn btn-primary ">Submit</button>
-              </div>
-            </form>
-          </div>
+    <hr>
+    <h5 class="p-2">Top 5 discussed topics</h5>
+    <ol class="shadow-sm list-group list-group-numbered top-topics">
+      {{#each topCommentedDis}}
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">{{this.Category.name}}</div>
+          <a href="/discussions/{{this.id}}">
+            {{this.header}}
+          </a>
+        </div>
+        <span class="badge bg-primary rounded-pill">{{this.numberOfComments}}</span>
+      </li>
+      {{/each}}
+    </ol>
+  </div>
+  {{!-- modal --}}
+  <div class="modal fade" id="make-a-post" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">發表主題</h1>
+        </div>
+        <div class="modal-body">
+          <form action="/discussions" method="POST">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" aria-describedby="emailHelp" name="header">
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">Content</label>
+              <textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
+            </div>
+            <select class="form-control" name="category" id="">
+              <option value="" selected>請選擇分類</option>
+              {{#each categories}}
+              <option value={{this.id}}>{{this.name}}</option>
+              {{/each}}
+            </select>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button type="submit" class="btn btn-primary ">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

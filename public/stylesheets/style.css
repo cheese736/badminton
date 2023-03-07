@@ -16,7 +16,18 @@
     font-size: x-small;
   }
 }
-
+@media screen and (max-width: 1024px) {
+  .forum {
+    display: block !important;
+  }
+  .forum div .nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .expand-smaller-1024 {
+    width: 100vw !important;
+  }
+}
 html,
 body {
   width: 100vw;
@@ -43,12 +54,18 @@ h5,
   font-weight: bold;
   color: #475b66;
 }
+.navbar-nav .nav-link {
+  font-size: 14px;
+}
 
 .side-bar .nav-link:hover {
   font-weight: bold;
   color: #566e7b;
 }
-.forum,
+.side-bar {
+  width: 15%;
+}
+.forum-content,
 .party-container,
 .forum-card,
 .side-bar {
@@ -56,6 +73,15 @@ h5,
   max-width: 100%;
 }
 
+.forum-content {
+  width: 60%;
+}
+.side-bar {
+  width: 15%;
+}
+nav .navbar-expand-lg {
+  width: 100vw !important;
+}
 .navbar a:hover {
   color: #cac4b2;
 }
@@ -113,8 +139,8 @@ h5,
   border-color: #cac4b2;
 }
 
-#end-of-nav {
-  font-size: 12px;
+#user-login {
+  font-size: 10px;
 }
 
 #signup,

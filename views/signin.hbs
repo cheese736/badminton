@@ -1,4 +1,4 @@
-<div class=" m-5" id="signin">
+<div class=" m-5 m-auto mt-5" id="signin" style="width:60%;">
   <div class="mb-4 text-center">
     <h1 class="h3 font-weight-normal mb-3">Sign In</h1>
   </div>
@@ -13,13 +13,16 @@
       <input class="form-control" id="password" type="password" name="password" class="form-control"
         placeholder="Password" required>
     </div>
-    <button class="btn btn-primary btn-block" type="submit">Submit</button>
+
+    <div class="d-flex text-center login ">
+      <div>
+        <a href="/signup">Sign Up</a>
+      </div>
+      <div class="ms-auto">
+        <a href="/facebook"><i class="fa-brands fa-facebook third-party-login align-bottom"></i></a>
+        <a href="/google"><i class="fa-brands fa-google third-party-login align-bottom"></i></a>
+        <button class="btn btn-primary btn-block" type="submit">Submit</button>
+      </div>
+    </div>
   </form>
-  <div class="mb-4 text-center">
-    <p class="login">
-      <a href="/signup">Sign Up</a>
-      <a href="/facebook"><i class="fa-brands fa-facebook third-party-login"></i></a>
-      <a href="/google"><i class="fa-brands fa-google third-party-login"></i></a>
-    </p>
-  </div>
 </div>

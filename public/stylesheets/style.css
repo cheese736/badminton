@@ -2,32 +2,6 @@
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 900px) {
-  .expand-smaller-900 {
-    width: 100vw !important;
-  }
-  .hide-for-smaller-900 {
-    display: none;
-  }
-  #find-a-badminton-activity {
-    display: block !important;
-  }
-  #parties {
-    font-size: x-small;
-  }
-}
-@media screen and (max-width: 1024px) {
-  .forum {
-    display: block !important;
-  }
-  .forum div .nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  .expand-smaller-1024 {
-    width: 100vw !important;
-  }
-}
 html,
 body {
   width: 100vw;
@@ -189,9 +163,6 @@ nav .navbar-expand-lg {
   color: #475b66;
 }
 
-.third-party-login {
-  font-size: 30px;
-}
 .top-topics {
   border: none;
 }
@@ -222,4 +193,49 @@ nav .navbar-expand-lg {
 .btn-primary:hover {
   background-color: #566e7b;
   color: #cac4b2;
+}
+
+.login-text {
+  font-size: 14px;
+}
+
+@media screen and (max-width: 900px) {
+  .expand-smaller-900 {
+    width: 100vw !important;
+  }
+  .hide-for-smaller-900 {
+    display: none;
+  }
+  #find-a-badminton-activity {
+    display: block !important;
+  }
+  #parties {
+    font-size: x-small;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .forum {
+    display: block !important;
+  }
+  .forum div .nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .expand-smaller-1024 {
+    width: 100vw !important;
+  }
+}
+
+.fa-brands {
+  font-size: 24px;
+}
+
+@media screen and (max-width: 450px) {
+  div.login {
+    flex-direction: column-reverse;
+  }
+  .login-strategy {
+    margin: auto;
+    margin-bottom: 5px;
+  }
 }

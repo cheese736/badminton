@@ -55,7 +55,7 @@
               </button>
             </form>
             {{else}}
-            <form action="/discussions/{{discussion.id}}" method="POST">
+            <form action="/discussions/{{discussion.id}}/like" method="POST">
               <button class="btn btn-sm p-0 icon">
                 <i class="fa-regular fa-heart"></i> Like
               </button>
@@ -88,13 +88,14 @@
             {{!-- 判斷使用者有like過哪些評論 --}}
             {{#ifInclude ../likedThings this.id}}
             {{!-- 按過like的 圖示改實心 --}}
-            <form action="/like/discussion/{{../discussion.id}}/comment/{{this.id}}?_method=DELETE" method="POST">
+            <form action="/discussions/{{../discussion.id}}/comment/{{this.id}}/removelike?_method=DELETE"
+              method="POST">
               <button class="btn btn-sm">
                 <i class="fa-solid fa-thumbs-up"></i>
               </button>
             </form>
             {{else}}
-            <form action="/like/discussion/{{../discussion.id}}/comment/{{this.id}}" method="POST">
+            <form action="/discussions/{{../discussion.id}}/comment/{{this.id}}/like" method="POST">
               <button class="btn btn-sm">
                 <i class="fa-regular fa-thumbs-up"></i>
               </button>

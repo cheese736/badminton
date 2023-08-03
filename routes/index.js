@@ -1,9 +1,12 @@
 const express = require('express')
 const passport = require('../config/passport')
-const partyController = require('../controllers/party-controllers')
+
 const router = express.Router()
+
+const partyController = require('../controllers/party-controllers')
 const userController = require('../controllers/user-controllers')
 const forumController = require('../controllers/forum-controllers')
+
 const { authenticated } = require('../middlewares/auth')
 const upload = require('../middlewares/multer')
 
@@ -79,7 +82,7 @@ router.post(
 )
 
 router.post(
-  '/discussions/:discussionId/comment/:commentId',
+  '/discussions/:discussionId/comment/:commentId/like',
   authenticated,
   forumController.addLike
 )

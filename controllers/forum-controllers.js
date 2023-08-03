@@ -225,7 +225,7 @@ const forumController = {
           created_at: Date.now(),
           updated_at: Date.now(),
         })
-        res.redirect(`/forum/discussions/${id}`)
+        res.redirect(`/discussions/${id}`)
       } catch (e) {
         console.log(e)
       }
@@ -243,7 +243,7 @@ const forumController = {
           discussion_id,
           comment_id,
         })
-        res.redirect(`/forum/discussions/${discussion_id}`)
+        res.redirect(`/discussions/${discussion_id}`)
       } catch (e) {
         console.log(e)
       }
@@ -263,7 +263,7 @@ const forumController = {
             comment_id,
           },
         })
-        res.redirect(`/forum/discussions/${discussion_id}`)
+        res.redirect(`/discussions/${discussion_id}`)
       } catch (e) {
         console.log(e)
       }
